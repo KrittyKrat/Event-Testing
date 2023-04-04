@@ -1,0 +1,321 @@
+{
+    "devices": [
+        {
+            "router": "RUTX11",
+            "number": "+37069027955",
+            "types": [
+                {
+                    "type": "DHCP",
+                    "subtypes": [
+                        {
+                            "subtype": "lan",
+                            "trigger": "100 150 50 80",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "wifi",
+                            "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "SIM switch",
+                    "subtypes": [
+                        {
+                            "subtype": "to SIM1",
+                            "trigger": "",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "to SIM2",
+                            "trigger": "",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "WiFi",
+                    "subtypes": [
+                        {
+                            "subtype": "client connected",
+                            "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "client disconnected",
+                            "trigger": "test",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "SMS",
+                    "subtypes": [
+                        {
+                            "subtype": "received from",
+                            "trigger": "Hello",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "Config",
+                    "subtypes": [
+                        {
+                            "subtype": "hostblock",
+                            "trigger": "http://192.168.1.1/api/services/webfilter/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "gps",
+                            "trigger": "http://192.168.1.1/api/services/gps/general/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "fstab",
+                            "trigger": "http://192.168.1.1/api/services/usb_tools/general/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "firewall",
+                            "trigger": "http://192.168.1.1/api/network/firewall/general_settings/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "dmvpn",
+                            "trigger": "http://192.168.1.1/api/services/dmvpn/config",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "ddns",
+                            "trigger": "http://192.168.1.1/api/services/ddns/config",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "chilli",
+                            "trigger": "http://192.168.1.1/api/services/hotspot/groups/config",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "blesem",
+                            "trigger": "http://192.168.1.1/api/services/bluetooth/general/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "call_utils",
+                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/call_utilities/general/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "periodic_reboot",
+                            "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "ping_reboot",
+                            "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "events_reporting",
+                            "trigger": "http://192.168.1.1/api/services/events_reporting/config",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "openvpn",
+                            "trigger": "http://192.168.1.1/api/services/openvpn/config",
+                            "expected":"bazinga"
+                        }
+                    ]
+                },
+                {
+                    "type": "Reboot",
+                    "subtypes": [
+                        {
+                            "subtype": "ping reboot",
+                            "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",
+                            "expected": ""
+                        },
+                        {
+                            "subtype": "reboot scheduler",
+                            "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
+                            "expected": ""
+                        },
+                        {
+                            "subtype": "sms reboot",
+                            "trigger": "Admin123 reboot",
+                            "expected": ""
+                        },
+                        {
+                            "subtype": "web ui",
+                            "trigger": "http://192.168.1.1/api/system/administration/general/actions/reboot",
+                            "expected": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "Switch Events",
+                    "subtypes": [
+                        {
+                            "subtype": "Port link state",
+                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
+                            "expected": ""
+                        },
+                        {
+                            "subtype": "Port speed for",
+                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
+                            "expected": ""
+                        },
+                        {
+                            "subtype": "changed to DOWN",
+                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
+                            "expected": ""
+                        },
+                        {
+                            "subtype": "changed to UP",
+                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
+                            "expected": ""
+                        }
+                    ]
+                },
+                {
+                    "type": "Failover",
+                    "subtypes": [
+                        {
+                            "subtype": "Switched to main",
+                            "trigger": "1",
+                            "expected":"asd"
+                        },
+                        {
+                            "subtype": "Switched to backup",
+                            "trigger": "0",
+                            "expected":"asd"
+                        }
+                    ]
+                },
+                {
+                    "type": "Web UI",
+                    "subtypes": [
+                        {
+                            "subtype": "was successful",
+                            "trigger": "admin Admin123",
+                            "expected":"asd"
+                        },
+                        {
+                            "subtype": "not successful",
+                            "trigger": "user based",
+                            "expected":"asd"
+                        }
+                    ]
+                },
+                {
+                    "type": "SSH",
+                    "subtypes": [
+                        {
+                            "subtype": "succeeded",
+                            "trigger": "192.168.1.1 root Admin123",
+                            "expected":"asd"
+                        },
+                        {
+                            "subtype": "bad",
+                            "trigger": "192.168.1.1 root cringe",
+                            "expected":"asd"
+                        }
+                    ]
+                },
+                {
+                    "type": "Mobile Data",
+                    "subtypes": [
+                        {
+                            "subtype": "data connected",
+                            "trigger": "Admin123 mobileon",
+                            "expected":"asd"
+                        },
+                        {
+                            "subtype": "data disconnected",
+                            "trigger": "Admin123 mobileoff",
+                            "expected":"asd"
+                        }
+                    ]
+                },
+                {
+                    "type": "Switch Topology",
+                    "subtypes": [
+                        {
+                            "subtype": "Changes in topology",
+                            "trigger": "http://192.168.1.1/api/network/interfaces/config",
+                            "expected":""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "router": "RUT956",
+            "number": "869058426",
+            "types": [
+                {
+                    "type": "Config change",
+                    "subtypes": [
+                        {
+                            "subtype": "OpenVPN",
+                            "trigger": "",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "profile",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "ipsec",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "dhcp",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "dropbear",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "network",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "firewall",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "ntp",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        },
+                        {
+                            "subtype": "ddns",
+                            "trigger": "",
+                            "expected":"bazinga"
+                        }
+                    ]
+                },
+                {
+                    "type": "Mobile data",
+                    "subtypes": [
+                        {
+                            "subtype": "All",
+                            "trigger": "",
+                            "expected":""
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
