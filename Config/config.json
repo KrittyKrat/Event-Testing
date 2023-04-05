@@ -5,63 +5,58 @@
             "number": "+37069027955",
             "types": [
                 {
-                    "type": "DHCP",
-                    "subtypes": [
-                        {
-                            "subtype": "lan",
-                            "trigger": "100 150 50 80",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "wifi",
-                            "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
-                            "expected":""
-                        }
-                    ]
-                },
-                {
-                    "type": "SIM switch",
-                    "subtypes": [
-                        {
-                            "subtype": "to SIM1",
-                            "trigger": "",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "to SIM2",
-                            "trigger": "",
-                            "expected":""
-                        }
-                    ]
-                },
-                {
-                    "type": "WiFi",
-                    "subtypes": [
-                        {
-                            "subtype": "client connected",
-                            "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "client disconnected",
-                            "trigger": "test",
-                            "expected":""
-                        }
-                    ]
-                },
-                {
-                    "type": "SMS",
-                    "subtypes": [
-                        {
-                            "subtype": "received from",
-                            "trigger": "Hello",
-                            "expected":""
-                        }
-                    ]
-                },
-                {
                     "type": "Config",
                     "subtypes": [
+                        {
+                            "subtype": "wireless",
+                            "trigger": "http://192.168.1.1/api/network/wireless/devices/config/radio0",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "profiles",
+                            "trigger": "http://192.168.1.1/api/system/profiles/config",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "mosquitto",
+                            "trigger": "http://192.168.1.1/api/services/mqtt_broker/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "mqtt_pub",
+                            "trigger": "http://192.168.1.1/api/services/mqtt_pub/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "ulog",
+                            "trigger": "http://192.168.1.1/api/services/ulog/general/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "network",
+                            "trigger": "http://192.168.1.1/api/network/interfaces/config",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "dropbear",
+                            "trigger": "http://192.168.1.1/api/system/access_control/ssh/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "ipsec",
+                            "trigger": "http://192.168.1.1/api/services/ipsec/config",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "ioman",
+                            "trigger": "http://192.168.1.1/api/services/io/scheduler/config/general",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "iojuggler",
+                            "trigger": "http://192.168.1.1/api/services/io/juggler/config/general",
+                            "expected":""
+                        },
                         {
                             "subtype": "hostblock",
                             "trigger": "http://192.168.1.1/api/services/webfilter/config/general",
@@ -130,8 +125,68 @@
                     ]
                 },
                 {
+                    "type": "DHCP",
+                    "subtypes": [
+                        {
+                            "subtype": "lan",
+                            "trigger": "100 150 50 80",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "wifi",
+                            "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "SIM switch",
+                    "subtypes": [
+                        {
+                            "subtype": "to SIM1",
+                            "trigger": "",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "to SIM2",
+                            "trigger": "",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "WiFi",
+                    "subtypes": [
+                        {
+                            "subtype": "client connected",
+                            "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
+                            "expected":""
+                        },
+                        {
+                            "subtype": "client disconnected",
+                            "trigger": "test",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
+                    "type": "SMS",
+                    "subtypes": [
+                        {
+                            "subtype": "received from",
+                            "trigger": "Hello",
+                            "expected":""
+                        }
+                    ]
+                },
+                {
                     "type": "Reboot",
                     "subtypes": [
+                        {
+                            "subtype": "from button",
+                            "trigger": "reboot -b",
+                            "expected": ""
+                        },
                         {
                             "subtype": "ping reboot",
                             "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",

@@ -65,40 +65,60 @@ def getBody(event):
     return body
 
 def createTemp(header, event):
-    post = True
+    post = False
     match event.subtype:
         case "ddns":
             body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
         case "dmvpn":
             body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
+        case "ipsec":
+            body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
         case "openvpn":
             body = {"data":{"id":str(random.randrange(9999)),"type":"client"}}
+            post = True
+        case "network":
+            body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
+        case "profiles":
+            body = {"data":{"id":str(random.randrange(9999)),"from_current_profile":"0",".type":"profile"}}
+            post = True
         case "gps":
             body = {"data":{"enabled":"1",".type":"section","glonass_sup":"0","id":"general","beidou_sup":"0","galileo_sup":"0"}}
-            post = False
         case "fstab":
             body = {"data":{"id":"general",".type":"global","auto_sync":"1"}}
-            post = False
         case "hostblock":
-            body = {"data":{"enabled":"1",".type":"hostblock","id":"general","mode":"whitelist"}}
-            post = False
+            body = {"data":{"enabled":"1",".type":"hostblock","id":"general","mode":"blacklist"}}
         case "call_utils":
             body = {"data":{"id":"general",".type":"call","action":"ignore","line_close_time":""}}
-            post = False
         case "blesem":
             body = {"data":{"enabled":"1",".type":"section","id":"general"}}
-            post = False
         case "firewall":
             body = {"data":{"drop_invalid":"1",".type":"defaults","auto_helper":"1","input":"REJECT","forward":"REJECT","id":"general","output":"ACCEPT"}}
-            post = False
+        case "iojuggler":
+            body = {"data":{"enabled":"1",".type":"general","id":"general"}}
+        case "ioman":
+            body = {"data":{"enabled":"1",".type":"scheduler_general","id":"general"}}
+        case "dropbear":
+            body = {"data":{".type":"dropbear","id":"general","port":"111","_sshWanAccess":"0","enable":"1","enable_key_ssh":"0"}}
+        case "ulog":
+            body = {"data":{"enabled":"1",".type":"ulogd","network":["lan"],"id":"general"}}
+        case "mosquitto":
+            body = {"data":{"enabled":"1","max_queued_messages":"1000","local_port":["1883"],"max_packet_size":"1048576","anonymous_access":"1","persistence":"0","use_tls_ssl":"0","enable_ra":"0","id":"general",".type":"mqtt","acl_file_path":"","password_file":""}}
+        case "mqtt_pub":
+            body = {"data":{"id":"general",".type":"mqtt_pub","enabled":"1","remote_addr":"www.test.com","remote_port":"1883","username":"","password":"","tls":"0"}}
+        case "wireless":
+            body = {"data":{"noscan":"0",".type":"wifi-device","country":"US","id":"radio0","legacy_rates":"1","hwmode":"n","txpower":"23","channel":"auto","htmode":"HT20","enabled":"0","distance":"","frag":"","rts":"","beacon_int":""}}
         case "chilli":
             temp = requests.get(event.trigger, headers=header)
             tempId = temp.json()['data'][0]['id']
             event.trigger = event.trigger + "/" + tempId
             body = {"data":{".type":"group","id":tempId,"defidletimeout":"1","day":"2","period":"3","downloadbandwidth":"","uploadbandwidth":"","downloadlimit":"","uploadlimit":"","defsessiontimeout":"","warning":""}}
-            post = False
         case other:
             body = {"data":{}}
+            post = True
 
     api_url = event.trigger
 
@@ -125,7 +145,21 @@ def deleteTemp(header, event, id):
         case "gps":
             body = {"data":{"enabled":"0",".type":"section","glonass_sup":"0","id":"general","beidou_sup":"0","galileo_sup":"0"}}
         case "hostblock":
-            body = {"data":{"enabled":"0",".type":"hostblock","id":"general","mode":"whitelist"}}
+            body = {"data":{"enabled":"0",".type":"hostblock","id":"general","mode":"blacklist"}}
+        case "iojuggler":
+            body = {"data":{"enabled":"0",".type":"general","id":"general"}}
+        case "ioman":
+            body = {"data":{"enabled":"0",".type":"scheduler_general","id":"general"}}
+        case "dropbear":
+            body = {"data":{".type":"dropbear","id":"general","port":"22","_sshWanAccess":"0","enable":"1","enable_key_ssh":"0"}}
+        case "ulog":
+            body = {"data":{"enabled":"0",".type":"ulogd","network":["lan"],"id":"general"}}
+        case "mqtt_pub":
+            body = {"data":{"id":"general",".type":"mqtt_pub","enabled":"0","remote_addr":"","remote_port":"1883","username":"","password":"","tls":"0"}}
+        case "mosquitto":
+            body = {"data":{"enabled":"0","max_queued_messages":"1000","local_port":["1883"],"max_packet_size":"1048576","anonymous_access":"1","persistence":"0","use_tls_ssl":"0","enable_ra":"0","id":"general",".type":"mqtt","acl_file_path":"","password_file":""}}
+        case "wireless":
+            body = {"data":{"noscan":"0",".type":"wifi-device","country":"US","id":"radio0","legacy_rates":"1","hwmode":"n","txpower":"23","channel":"auto","htmode":"HT20","enabled":"1","distance":"","frag":"","rts":"","beacon_int":""}}
         case other:
             body = {"data":[id]}
             delete = True
@@ -138,8 +172,7 @@ def deleteTemp(header, event, id):
         response = requests.put(api_url, headers=header, json=body)
 
 def findEvent(e, header, api_url, header2):
-    ssh = connectSSH(None)
-    ids = prepFailover(header)
+    #ssh = connectSSH(None)
     match e.type:
         case "Config":
             testConfig(e, header, api_url)
@@ -152,6 +185,7 @@ def findEvent(e, header, api_url, header2):
         case "SIM switch":
             testSimSwitch(e, header, api_url)
         case "Failover":
+            ids = prepFailover(header)
             testFailover(e, header, api_url, ids)
         case "Switch Events":
             testPorts(e, header, api_url)
@@ -257,6 +291,10 @@ def testReboot(e, header, api_url):
             body = {"data":{"modem":"3-1","number":e.nrExpected,"message": e.trigger}}
             msg_url = "http://192.168.1.1/api/services/mobile_utilities/sms_messages/send/actions/send"
             rez = requests.post(msg_url, headers=header, json=body)
+        case "from button":
+            ssh = connectSSH(None)
+            #ssh.exec_command(e.trigger)
+            executeCommand(ssh, e.trigger)
     time.sleep(120)
 
 def testPorts(e, header, api_url):
