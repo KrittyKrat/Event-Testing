@@ -17,12 +17,13 @@ def readConfigFile(routerName, jsonFile):
     events = []
     connected = False
 
+    # Expected changed to subtype, change back later!
     try:
         for d in data['devices']:
             if d['router'] == routerName:
                 for e in d['types']:
                     for s in e['subtypes']:
-                        events.append(Event(e['type'], s['subtype'], s["trigger"], s['expected'], d['number']))
+                        events.append(Event(e['type'], s['subtype'], s["trigger"], s['subtype'], d['number'], data['testNumber']))
                 connected = True
     except:
         print("Bad json format")

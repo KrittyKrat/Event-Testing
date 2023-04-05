@@ -11,9 +11,9 @@ def main():
     modVar = args.mod
 
     events = inUtil.readConfigFile(routerName, jsonFile)
-    outUtil.writeToCSV(events, routerName)
     print("Router being tested: " + routerName)
     test.testAll(events)
+    outUtil.writeToCSV(events, routerName)
 
 if __name__ == "__main__":
     main()

@@ -54,7 +54,7 @@ def getBody(event):
     body = {"data":{".type":"rule",
                 "action":"sendEmail",
                 "enable":"1",
-                "telnum":"+447342780080",
+                "telnum":event.testNumber,
                 "event":event.type,
                 "message":event.subtype + " - " + str(datetime.now()),
                 "recipient_format":"single",
@@ -62,6 +62,22 @@ def getBody(event):
                 "id":"cfg0392bd",
                 "recipEmail":["thejjjane@gmail.com"]},
                 "emailgroup":"sender"}
+
+    body = {"data": {
+                ".type": "rule",
+                "action": "sendSMS",
+                "enable": "1",
+                "telnum": event.testNumber,
+                "event": event.type,
+                "id": "cfg0392bd",
+                "message": event.subtype,
+                "subject": "",
+                "recipient_format": "single",
+                "recipEmail": "",
+                "emailgroup": "",
+                "eventMark": event.subtype
+            }
+        }
     return body
 
 def createTemp(header, event):
@@ -80,6 +96,9 @@ def createTemp(header, event):
             body = {"data":{"id":str(random.randrange(9999)),"type":"client"}}
             post = True
         case "network":
+            body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
+        case "vrrpd":
             body = {"data":{"id":str(random.randrange(9999))}}
             post = True
         case "profiles":
@@ -111,6 +130,8 @@ def createTemp(header, event):
             body = {"data":{"id":"general",".type":"mqtt_pub","enabled":"1","remote_addr":"www.test.com","remote_port":"1883","username":"","password":"","tls":"0"}}
         case "wireless":
             body = {"data":{"noscan":"0",".type":"wifi-device","country":"US","id":"radio0","legacy_rates":"1","hwmode":"n","txpower":"23","channel":"auto","htmode":"HT20","enabled":"0","distance":"","frag":"","rts":"","beacon_int":""}}
+        case "upnpd":
+            body = {"data":{"enabled":"1","log_output":"0","upload":"512","system_uptime":"1","uuid":"","serial_number":"","model_number":"","notify_interval":"","clean_ruleset_threshold":"","clean_ruleset_interval":"","presentation_url":""}}
         case "chilli":
             temp = requests.get(event.trigger, headers=header)
             tempId = temp.json()['data'][0]['id']
@@ -160,6 +181,8 @@ def deleteTemp(header, event, id):
             body = {"data":{"enabled":"0","max_queued_messages":"1000","local_port":["1883"],"max_packet_size":"1048576","anonymous_access":"1","persistence":"0","use_tls_ssl":"0","enable_ra":"0","id":"general",".type":"mqtt","acl_file_path":"","password_file":""}}
         case "wireless":
             body = {"data":{"noscan":"0",".type":"wifi-device","country":"US","id":"radio0","legacy_rates":"1","hwmode":"n","txpower":"23","channel":"auto","htmode":"HT20","enabled":"1","distance":"","frag":"","rts":"","beacon_int":""}}
+        case "upnpd":
+            body = {"data":{"secure_mode":"1",".type":"upnpd","upnp_lease_file":"/var/run/miniupnpd.leases","download":"1024","port":"5000","id":"general","enabled":"0","log_output":"0","upload":"512","system_uptime":"1","uuid":"","serial_number":"","model_number":"","notify_interval":"","clean_ruleset_threshold":"","clean_ruleset_interval":"","presentation_url":""}}
         case other:
             body = {"data":[id]}
             delete = True
@@ -440,13 +463,60 @@ def testAll(events):
     passedCommands = 0
     failedCommands = 0
 
+    setupSMS(header2)
+
     terminal.terminal("Type", "Subtype", "Passed", "Failed", "Total", False)
 
     for e in events:
         findEvent(e, header, api_url, header2)
-        terminal.terminal(e.type, e.subtype, "", "", totalCommands, False)
-        #response.json()['success']
+        checkSMS(e, header2)
+        passedCommands, failedCommands = checkGotten(e, passedCommands, failedCommands)
+        terminal.terminal(e.type, e.subtype, passedCommands, failedCommands, totalCommands, False)
 
         if e.type == "Reboot":
             token = getToken(None, None)
             header = {"Authorization": "Bearer " + token}
+
+def setupSMS(header2):
+    get_url = "http://192.168.1.2/api/services/mobile_utilities/sms_messages/read/config"
+    del_ulr = "http://192.168.1.2/api/services/mobile_utilities/sms_messages/read/config/1-1.4"
+
+    response = requests.get(get_url, headers=header2)
+    nr = []
+    for d in reversed(range(0, len(response.json()['data']))):
+        nr.append(str(d))
+
+    body = {"data":nr}
+    requests.delete(del_ulr, headers=header2, json=body)
+
+def checkSMS(e, header2):
+    get_url = "http://192.168.1.2/api/services/mobile_utilities/sms_messages/read/config"
+    timeout = 8
+    temp = ""
+    tempNr = ""
+
+    for i in range(0, timeout):
+        response = requests.get(get_url, headers=header2)
+        for d in response.json()['data']:
+            if(d['message'] == e.expected):
+                e.gotten = e.expected
+                e.nrGotten = e.nrExpected
+                return
+            else:
+                temp = d['message']
+                tempNr = d['sender']
+
+        setupSMS(header2)
+        time.sleep(1.5)
+
+    e.gotten  = temp
+    e.nrGotten = tempNr
+
+def checkGotten(e, passedCommands, failedCommands):
+    if e.gotten == e.expected and e.nrGotten == e.nrExpected:
+        e.success = "Pass"
+        passedCommands = passedCommands + 1
+    else:
+        e.success = "Fail"
+        failedCommands = failedCommands + 1
+    return passedCommands, failedCommands

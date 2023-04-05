@@ -1,5 +1,5 @@
 class Event:
-    def __init__(self, type, subtype, trigger, expected, nrExpected) -> None:
+    def __init__(self, type, subtype, trigger, expected, nrExpected, testNumber) -> None:
         self.type = type
         self.subtype = subtype
         self.trigger = trigger
@@ -8,3 +8,4 @@ class Event:
         self.nrGotten = ""
         self.nrExpected = nrExpected
         self.success = ""
+        self.testNumber = testNumber

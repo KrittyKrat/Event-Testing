@@ -1,49 +1,26 @@
 Event,Gotten,Expected,Number Got,Number Sent,Passed
-wireless,,,,+37069027955,
-profiles,,,,+37069027955,
-mosquitto,,,,+37069027955,
-mqtt_pub,,,,+37069027955,
-ulog,,,,+37069027955,
-network,,,,+37069027955,
-dropbear,,,,+37069027955,
-ipsec,,,,+37069027955,
-ioman,,,,+37069027955,
-iojuggler,,,,+37069027955,
-hostblock,,,,+37069027955,
-gps,,,,+37069027955,
-fstab,,,,+37069027955,
-firewall,,,,+37069027955,
-dmvpn,,,,+37069027955,
-ddns,,,,+37069027955,
-chilli,,,,+37069027955,
-blesem,,,,+37069027955,
-call_utils,,,,+37069027955,
-periodic_reboot,,bazinga,,+37069027955,
-ping_reboot,,bazinga,,+37069027955,
-events_reporting,,bazinga,,+37069027955,
-openvpn,,bazinga,,+37069027955,
-lan,,,,+37069027955,
-wifi,,,,+37069027955,
-to SIM1,,,,+37069027955,
-to SIM2,,,,+37069027955,
-client connected,,,,+37069027955,
-client disconnected,,,,+37069027955,
-received from,,,,+37069027955,
-from button,,,,+37069027955,
-ping reboot,,,,+37069027955,
-reboot scheduler,,,,+37069027955,
-sms reboot,,,,+37069027955,
-web ui,,,,+37069027955,
-Port link state,,,,+37069027955,
-Port speed for,,,,+37069027955,
-changed to DOWN,,,,+37069027955,
-changed to UP,,,,+37069027955,
-Switched to main,,asd,,+37069027955,
-Switched to backup,,asd,,+37069027955,
-was successful,,asd,,+37069027955,
-not successful,,asd,,+37069027955,
-succeeded,,asd,,+37069027955,
-bad,,asd,,+37069027955,
-data connected,,asd,,+37069027955,
-data disconnected,,asd,,+37069027955,
-Changes in topology,,,,+37069027955,
+upnpd,upnpd,upnpd,+37069027955,+37069027955,Pass
+vrrpd,vrrpd,vrrpd,+37069027955,+37069027955,Pass
+wireless,wireless,wireless,+37069027955,+37069027955,Pass
+profiles,profiles,profiles,+37069027955,+37069027955,Pass
+mosquitto,mosquitto,mosquitto,+37069027955,+37069027955,Pass
+mqtt_pub,mqtt_pub,mqtt_pub,+37069027955,+37069027955,Pass
+ulog,upnpd,ulog,+37069027955,+37069027955,Fail
+network,network,network,+37069027955,+37069027955,Pass
+dropbear,dropbear,dropbear,+37069027955,+37069027955,Pass
+ipsec,ipsec,ipsec,+37069027955,+37069027955,Pass
+ioman,ioman,ioman,+37069027955,+37069027955,Pass
+iojuggler,iojuggler,iojuggler,+37069027955,+37069027955,Pass
+hostblock,hostblock,hostblock,+37069027955,+37069027955,Pass
+gps,gps,gps,+37069027955,+37069027955,Pass
+fstab,fstab,fstab,+37069027955,+37069027955,Pass
+firewall,firewall,firewall,+37069027955,+37069027955,Pass
+dmvpn,dmvpn,dmvpn,+37069027955,+37069027955,Pass
+ddns,ddns,ddns,+37069027955,+37069027955,Pass
+chilli,chilli,chilli,+37069027955,+37069027955,Pass
+blesem,blesem,blesem,+37069027955,+37069027955,Pass
+call_utils,call_utils,call_utils,+37069027955,+37069027955,Pass
+periodic_reboot,periodic_reboot,periodic_reboot,+37069027955,+37069027955,Pass
+ping_reboot,ping_reboot,ping_reboot,+37069027955,+37069027955,Pass
+events_reporting,events_reporting,events_reporting,+37069027955,+37069027955,Pass
+openvpn,openvpn,openvpn,+37069027955,+37069027955,Pass
