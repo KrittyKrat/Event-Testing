@@ -6,131 +6,16 @@
             "number": "+37069027955",
             "types": [
                 {
-                    "type": "Config",
+                    "type": "SSH",
                     "subtypes": [
                         {
-                            "subtype": "upnpd",
-                            "trigger": "http://192.168.1.1/api/services/upnp/settings/config/general",
+                            "subtype": "succeeded",
+                            "trigger": "192.168.1.1 root Admin123",
                             "expected":""
                         },
                         {
-                            "subtype": "vrrpd",
-                            "trigger": "http://192.168.1.1/api/services/vrrp/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "wireless",
-                            "trigger": "http://192.168.1.1/api/network/wireless/devices/config/radio0",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "profiles",
-                            "trigger": "http://192.168.1.1/api/system/profiles/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "mosquitto",
-                            "trigger": "http://192.168.1.1/api/services/mqtt_broker/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "mqtt_pub",
-                            "trigger": "http://192.168.1.1/api/services/mqtt_pub/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "ulog",
-                            "trigger": "http://192.168.1.1/api/services/ulog/general/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "network",
-                            "trigger": "http://192.168.1.1/api/network/interfaces/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "dropbear",
-                            "trigger": "http://192.168.1.1/api/system/access_control/ssh/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "ipsec",
-                            "trigger": "http://192.168.1.1/api/services/ipsec/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "ioman",
-                            "trigger": "http://192.168.1.1/api/services/io/scheduler/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "iojuggler",
-                            "trigger": "http://192.168.1.1/api/services/io/juggler/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "hostblock",
-                            "trigger": "http://192.168.1.1/api/services/webfilter/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "gps",
-                            "trigger": "http://192.168.1.1/api/services/gps/general/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "fstab",
-                            "trigger": "http://192.168.1.1/api/services/usb_tools/general/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "firewall",
-                            "trigger": "http://192.168.1.1/api/network/firewall/general_settings/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "dmvpn",
-                            "trigger": "http://192.168.1.1/api/services/dmvpn/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "ddns",
-                            "trigger": "http://192.168.1.1/api/services/ddns/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "chilli",
-                            "trigger": "http://192.168.1.1/api/services/hotspot/groups/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "blesem",
-                            "trigger": "http://192.168.1.1/api/services/bluetooth/general/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "call_utils",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/call_utilities/general/config/general",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "periodic_reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "ping_reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "events_reporting",
-                            "trigger": "http://192.168.1.1/api/services/events_reporting/config",
-                            "expected":""
-                        },
-                        {
-                            "subtype": "openvpn",
-                            "trigger": "http://192.168.1.1/api/services/openvpn/config",
+                            "subtype": "bad",
+                            "trigger": "192.168.1.1 root cringe",
                             "expected":""
                         }
                     ]

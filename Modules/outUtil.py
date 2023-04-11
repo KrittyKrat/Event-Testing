@@ -17,7 +17,7 @@ def writeToCSV(events, routerName):
         writer.writerow(["Event", "Gotten", "Expected", "Number Got", "Number Sent", "Passed"])
 
         for i in range(0, len(events)):
-            writer.writerow([events[i].subtype, events[i].gotten, events[i].expected, events[i].nrGotten, events[i].nrExpected, events[i].success])
+            writer.writerow([events[i].type, events[i].gotten, events[i].expected, events[i].nrGotten, events[i].nrExpected, events[i].success])
     except:
         print("Failed to write to .csv file")
         quit()
