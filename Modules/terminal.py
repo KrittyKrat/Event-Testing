@@ -17,6 +17,5 @@ def arguments():
     parser.add_argument('--file', type=str, help='Name of the config .json file', required=True)
     parser.add_argument('--rut1', type=str, help='Main router variables (ip, username, password)', nargs=3, required=False)
     parser.add_argument('--rut2', type=str, help='Second router variables (ip, username, password)', nargs=3, required=False)
-    parser.add_argument('--mod', type=str, help='Modbus variables (ip, port, id)', nargs=3, required=False)
     args = parser.parse_args()
     return args

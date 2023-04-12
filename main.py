@@ -9,7 +9,6 @@ def main():
     jsonFile = args.file
     rut1 = args.rut1
     rut2 = args.rut2
-    modVar = args.mod
 
     events = inUtil.readConfigFile(routerName, jsonFile)
     print("Router being tested: " + routerName)

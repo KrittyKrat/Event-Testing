@@ -1,23 +1,37 @@
+# Events Reporting Testing
+#### Intro
+This python program is made to test the Events Reporting Service functionality in any router that supports SMS.
+#### Prerequisites
+Before you begin, these are the libraries you will need to install:
+```
+pip install paramiko
+pip install argparse
+```
+Then you must connect your desired device to your computer using an ethernet cable. Navigate to it's WebUI and add a new  events reporting rule in Services>Events Reporting, leave it empty. Next you have to insert your SIM cards in both your main router plus your secondary router that will be receiving the resulting messages. Connect the main router to the second one via ethernet cable and make sure they are in the same lan subnet. You must also have a another direct source of internet to be able to test the failover event rule.
+#### Program
+You can run the program using:
+```
+python3 main.py [--name] "router name" [--file] "config file location" [--rut1] "Main router parameters" [--rut2] "Second router parameters"
+```
+The router name and file are mandatory arguments and must be pasted correctly. Both router variables are optional if you decide to customize your connection and want to set your own variables for the ip, username and password. The default for rut1 - 192.168.1.1 admin Admin123, rut2 - 192.168.1.2 admin Admin123. Here are a few examples of how to use the program:
+```
+python3 main.py --name RUTX11 --file Config/config.json
+python3 main.py --name RUT955 --file /home/stud/testfile.json --rut1 192.168.2.1 user passwd --rut2 192.168.2.5 admin 12345
+```
+While running the program you will be able to see live results like the events type and subtype, total number of commands to be tested, how many commands passed and failed the test.
+#### Files
+The command file must be a .json and it's format you can see in the example below. In it you must have the second routers phone number, a list of devices with the name and their own phone number. The device has a list of event types and inside them are their subtypes. The subtype name must be the one found in the API, not the one found on the WebUI. Different subtypes have different triggers. For instance, the config type and it's subtypes all have triggers that are just the endpoint. However, the DHCP type's lan subtype requires four numbers, first two are your desired DHCP from and to IPs, the second two are ones that are going to trigger the event rule. You can observe the different variations in the example:
+```
 {
-    "testNumber":"869463329",
+    "testNumber":"864781254",
     "devices": [
         {
             "router": "RUTX11",
-            "number": "+37069027955",
+            "number": "865843255",
             "types": [
                 {
                     "type": "Config",
                     "subtypes": [
-                        {
-                            "subtype": "upnpd",
-                            "trigger": "http://192.168.1.1/api/services/upnp/settings/config/general",
-                            "expected":"UPNP"
-                        },
-                        {
-                            "subtype": "vrrpd",
-                            "trigger": "http://192.168.1.1/api/services/vrrp/config",
-                            "expected":"VRRP"
-                        },
                         {
                             "subtype": "wireless",
                             "trigger": "http://192.168.1.1/api/network/wireless/devices/config/radio0",
@@ -34,49 +48,14 @@
                             "expected":"MQTT Broker"
                         },
                         {
-                            "subtype": "mqtt_pub",
-                            "trigger": "http://192.168.1.1/api/services/mqtt_pub/config/general",
-                            "expected":"MQTT Publisher"
-                        },
-                        {
                             "subtype": "network",
                             "trigger": "http://192.168.1.1/api/network/interfaces/config",
                             "expected":"Network"
                         },
                         {
-                            "subtype": "dropbear",
-                            "trigger": "http://192.168.1.1/api/system/access_control/ssh/config/general",
-                            "expected":"SSH"
-                        },
-                        {
-                            "subtype": "ipsec",
-                            "trigger": "http://192.168.1.1/api/services/ipsec/config",
-                            "expected":"IPSEC"
-                        },
-                        {
                             "subtype": "ioman",
                             "trigger": "http://192.168.1.1/api/services/io/scheduler/config/general",
                             "expected":"IO Scheduler"
-                        },
-                        {
-                            "subtype": "iojuggler",
-                            "trigger": "http://192.168.1.1/api/services/io/juggler/config/general",
-                            "expected":"IO Juggler"
-                        },
-                        {
-                            "subtype": "hostblock",
-                            "trigger": "http://192.168.1.1/api/services/webfilter/config/general",
-                            "expected":"Webfilter"
-                        },
-                        {
-                            "subtype": "gps",
-                            "trigger": "http://192.168.1.1/api/services/gps/general/config/general",
-                            "expected":"GPS"
-                        },
-                        {
-                            "subtype": "fstab",
-                            "trigger": "http://192.168.1.1/api/services/usb_tools/general/config/general",
-                            "expected":"USB"
                         },
                         {
                             "subtype": "firewall",
@@ -92,41 +71,6 @@
                             "subtype": "ddns",
                             "trigger": "http://192.168.1.1/api/services/ddns/config",
                             "expected":"DDNS"
-                        },
-                        {
-                            "subtype": "chilli",
-                            "trigger": "http://192.168.1.1/api/services/hotspot/groups/config",
-                            "expected":"Hotspot"
-                        },
-                        {
-                            "subtype": "blesem",
-                            "trigger": "http://192.168.1.1/api/services/bluetooth/general/config/general",
-                            "expected":"Bluetooth"
-                        },
-                        {
-                            "subtype": "call_utils",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/call_utilities/general/config/general",
-                            "expected":"Call Utilities"
-                        },
-                        {
-                            "subtype": "periodic_reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
-                            "expected":"Periodic Reboot"
-                        },
-                        {
-                            "subtype": "ping_reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",
-                            "expected":"Ping Reboot"
-                        },
-                        {
-                            "subtype": "events_reporting",
-                            "trigger": "http://192.168.1.1/api/services/events_reporting/config",
-                            "expected":"Events Reporting"
-                        },
-                        {
-                            "subtype": "openvpn",
-                            "trigger": "http://192.168.1.1/api/services/openvpn/config",
-                            "expected":"OpenVPN"
                         }
                     ]
                 },
@@ -194,19 +138,9 @@
                             "expected": "Rebooted From Button"
                         },
                         {
-                            "subtype": "ping reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",
-                            "expected": "Rebooted From Ping"
-                        },
-                        {
                             "subtype": "reboot scheduler",
                             "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
                             "expected": "Rebooted From Scheduler"
-                        },
-                        {
-                            "subtype": "sms reboot",
-                            "trigger": "Admin123 reboot",
-                            "expected": "Rebooted From SMS"
                         },
                         {
                             "subtype": "web ui",
@@ -224,22 +158,18 @@
                             "expected": "Port Link State Change"
                         },
                         {
-                            "subtype": "Port speed for",
-                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
-                            "expected": "Port Speed Change"
-                        },
-                        {
                             "subtype": "changed to DOWN",
                             "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
                             "expected": "Port State Changed To Down"
-                        },
-                        {
-                            "subtype": "changed to UP",
-                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
-                            "expected": "Port State Changed To Up"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "router": "RUT956",
+            "number": "867822518",
+            "types": [
                 {
                     "type": "Failover",
                     "subtypes": [
@@ -311,22 +241,8 @@
                     ]
                 }
             ]
-        },
-        {
-            "router": "TEST",
-            "number": "869027955",
-            "types": [
-                {
-                    "type": "Reboot",
-                    "subtypes": [
-                        {
-                            "subtype": "sms reboot",
-                            "trigger": "Admin123 reboot",
-                            "expected": ""
-                        }
-                    ]
-                }
-            ]
         }
     ]
 }
+```
+Results are stored in the Results folder in .csv format. A new file is created for every time you launch a test.

@@ -134,11 +134,13 @@ def deleteTemp(header, event, id):
 def testSSH(e, header, api_url):
     response = test.changeEventConfig(e, header, api_url)
     ssh = test.connectSSH(e.trigger.split())
+    time.sleep(2)
     ssh.close()
 
 def testWeb(e, header, api_url):
     response = test.changeEventConfig(e, header, api_url)
     test.getToken(["hold", e.trigger.split()[0], e.trigger.split()[1]], IP1)
+    time.sleep(5)
 
 def testMobData(e, header, api_url):
     trig = e.trigger.split()
@@ -211,10 +213,10 @@ def testFailover(e, header, api_url, ids):
 
     if e.trigger == "1": 
         requests.post(get_url, headers=header, json=mainOn)
-        time.sleep(30)
+        time.sleep(60)
     else:
         requests.post(get_url, headers=header, json=mainOff)
-        time.sleep(30)
+        time.sleep(20)
 
     requests.post(get_url, headers=header, json=mainOn)
 
@@ -230,7 +232,7 @@ def testPorts(e, header, api_url):
     requests.put(e.trigger, headers=header, json={"data":{"id":"general",".type":"switch","mirror_monitor_port":temp,"mirror_source_port":"3","enable_mirror_rx":"","enable_mirror_tx":""}})
     time.sleep(10)
 
-def testReboot(e, header, api_url, rut):
+def testReboot(e, header, header2, api_url, rut):
 
     response = test.changeEventConfig(e, header, api_url)
     time.sleep(3)
@@ -241,7 +243,7 @@ def testReboot(e, header, api_url, rut):
             tempId = rez.json()['data']['id']
             body = {"data":{".type":"ping_reboot","retry":"1","id":tempId,"ip_type":"ipv4","packet_size":"56","time_out":"1","enable":"1","type":"ping","action":"1","time":"5","host":"192.168.55.55","stop_action":"0","number":"","interface":"1"}}
             rez = requests.put(e.trigger + "/" + tempId, headers=header, json=body)
-            time.sleep(480)
+            time.sleep(420)
             header = {"Authorization": "Bearer " + test.getToken(rut, IP1)}
             requests.delete(e.trigger, headers=header, json={"data":[tempId]})
         case "reboot scheduler":
@@ -255,15 +257,18 @@ def testReboot(e, header, api_url, rut):
             requests.delete(e.trigger, headers=header, json={"data":[tempId]})
         case "web ui":
             rez = requests.post(e.trigger, headers=header)
+            time.sleep(120)
         case "sms reboot":
             body = {"data":{"modem":"3-1","number":e.nrExpected,"message": e.trigger}}
             msg_url = "http://"+IP1+"/api/services/mobile_utilities/sms_messages/send/actions/send"
             rez = requests.post(msg_url, headers=header, json=body)
+            print(rez.text)
+            time.sleep(120)
         case "from button":
             ssh = test.connectSSH(None)
             #ssh.exec_command(e.trigger)
             test.executeCommand(ssh, e.trigger)
-    time.sleep(120)
+            time.sleep(120)
 
 def testSMS(e, header, api_url):
     response = test.changeEventConfig(e, header, api_url)
@@ -281,7 +286,7 @@ def testTopology(e, header, api_url):
     time.sleep(5)
     response = test.changeEventConfig(e, header, api_url)
     requests.put(e.trigger, headers=header, json=bodyOn)
-    time.sleep(10)
+    time.sleep(20)
 
 def testWiFi(e, header, api_url, header2):
     response = test.changeEventConfig(e, header, api_url)
@@ -291,6 +296,7 @@ def testWiFi(e, header, api_url, header2):
         body = {"data":{"bssid":trig[0],"ssid":trig[1],"password":trig[2],"network":trig[3],"fwzone":"wan","device":"radio0"}}
         wifi_url = "http://"+IP2+"/api/network/wireless/devices/actions/join_wifi_network"
         z = requests.post(wifi_url, headers=header2, json=body)
+        time.sleep(5)
     elif e.subtype == "client disconnected":
         body = {"data":[trig[0]]}
         wifi_url = "http://"+IP2+"/api/network/interfaces/config"

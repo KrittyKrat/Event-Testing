@@ -1,3 +1,0 @@
-Event,Gotten,Expected,Number Got,Number Sent,Passed
-SSH,succeeded,succeeded,+37069027955,+37069027955,Pass
-SSH,bad,bad,+37069027955,+37069027955,Pass

@@ -19,7 +19,6 @@ def getToken(rut, ip):
     api_url = "http://"+ip+"/api/login"
 
     if rut == None:
-        print("inside")
         login = {"username":"admin", "password":"Admin123"}
     else:
         login = {"username":rut[1], "password":rut[2]}
@@ -70,7 +69,7 @@ def getBody(event):
                 "telnum": event.testNumber,
                 "event": event.type,
                 "id": "cfg0392bd",
-                "message": event.subtype,
+                "message": event.expected,
                 "subject": "",
                 "recipient_format": "single",
                 "recipEmail": "",
@@ -99,7 +98,7 @@ def findEvent(e, header, api_url, header2, rut1):
         case "Switch Events":
             testSpecific.testPorts(e, header, api_url)
         case "Reboot":
-            testSpecific.testReboot(e, header, api_url, rut1)
+            testSpecific.testReboot(e, header, header2, api_url, rut1)
         case "SMS":
             testSpecific.testSMS(e, header, api_url)
         case "Switch Topology":
@@ -119,12 +118,12 @@ def toggleVlan(on, header):
     time.sleep(5)
 
 def prepFailover(header):
-    get_url = "http://192.168.1.1/api/network/mwan3/general/status"
+    get_url = "http://"+IP1+"/api/network/mwan3/general/status"
     res = requests.get(get_url, headers=header)
     ids = []
     for id in res.json()['data']:
         ids.append(id)
-        put_url = "http://192.168.1.1/api/network/mwan3/interfaces/config/" + id
+        put_url = "http://"+IP1+"/api/network/mwan3/interfaces/config/" + id
         body = {"data":{"enabled":"1",".type":"interface","track_ip":["1.1.1.1","8.8.8.8"],"up":"3","reliability":"1","id":id,"count":"1","track_method":"ping","interval":"3","down":"3","flush_conntrack":""}}
         requests.put(put_url, headers=header, json=body)
     return ids
@@ -169,19 +168,31 @@ def testAll(events, rut1, rut2):
 
     terminal.terminal("Type", "Subtype", "Passed", "Failed", "Total", False)
 
-    for e in events:
-        terminal.terminal(e.type, e.subtype, passedCommands, failedCommands, totalCommands, False)
-        findEvent(e, header, api_url, header2, rut1)
+    timeout = 5
+    i=0
+    while i < len(events):
+        try:
+            terminal.terminal(events[i].type, events[i].subtype, passedCommands, failedCommands, totalCommands, False)
+            findEvent(events[i], header, api_url, header2, rut1)
 
-        if e.type == "Reboot":
-            token = getToken(rut1, IP1)
-            header = {"Authorization": "Bearer " + token}
-            token2 = getToken(rut2, IP2)
-            header2 = {"Authorization": "Bearer " + token2}
+            if events[i].type == "Reboot":
+                token = getToken(rut1, IP1)
+                header = {"Authorization": "Bearer " + token}
+                token2 = getToken(rut2, IP2)
+                header2 = {"Authorization": "Bearer " + token2}
 
-        checkSMS(e, header2)
-        passedCommands, failedCommands = checkGotten(e, passedCommands, failedCommands)
-
+            checkSMS(events[i], header2)
+            passedCommands, failedCommands = checkGotten(events[i], passedCommands, failedCommands)
+            timeout = 3
+            i += 1
+        except:
+            if timeout > 0:
+                timeout = timeout - 1
+            else:
+                print("No connection found, retrying...")
+                quit()
+            print("Lost connection rip")
+            time.sleep(10)
 
     terminal.terminal("---", "---", passedCommands, failedCommands, totalCommands, False)
 
@@ -212,7 +223,7 @@ def checkSMS(e, header2):
 
     for i in range(0, timeout):
         response = requests.get(get_url, headers=header2)
-        print(response.text)
+        #print(response.text)
         for d in response.json()['data']:
             if(d['message'] == e.expected):
                 e.gotten = e.expected

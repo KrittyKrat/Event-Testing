@@ -1,0 +1,50 @@
+Event,Gotten,Expected,Number Got,Number Sent,Passed
+Config,upnpd,upnpd,37069027955,37069027955,Pass
+Config,vrrpd,vrrpd,37069027955,37069027955,Pass
+Config,wireless,wireless,37069027955,37069027955,Pass
+Config,profiles,profiles,37069027955,37069027955,Pass
+Config,mosquitto,mosquitto,37069027955,37069027955,Pass
+Config,mqtt_pub,mqtt_pub,37069027955,37069027955,Pass
+Config,network,network,37069027955,37069027955,Pass
+Config,dropbear,dropbear,37069027955,37069027955,Pass
+Config,ipsec,ipsec,37069027955,37069027955,Pass
+Config,ioman,ioman,37069027955,37069027955,Pass
+Config,iojuggler,iojuggler,37069027955,37069027955,Pass
+Config,hostblock,hostblock,37069027955,37069027955,Pass
+Config,gps,gps,37069027955,37069027955,Pass
+Config,fstab,fstab,37069027955,37069027955,Pass
+Config,firewall,firewall,37069027955,37069027955,Pass
+Config,dmvpn,dmvpn,37069027955,37069027955,Pass
+Config,ddns,ddns,37069027955,37069027955,Pass
+Config,chilli,chilli,37069027955,37069027955,Pass
+Config,blesem,blesem,37069027955,37069027955,Pass
+Config,call_utils,call_utils,37069027955,37069027955,Pass
+Config,periodic_reboot,periodic_reboot,37069027955,37069027955,Pass
+Config,ping_reboot,ping_reboot,37069027955,37069027955,Pass
+Config,events_reporting,events_reporting,37069027955,37069027955,Pass
+Config,openvpn,openvpn,37069027955,37069027955,Pass
+DHCP,lan,lan,37069027955,37069027955,Pass
+DHCP,wifi,wifi,37069027955,37069027955,Pass
+SIM switch,to SIM1,to SIM1,37069027955,37069027955,Pass
+SIM switch,to SIM2,to SIM2,37069027955,37069027955,Pass
+WiFi,client connected,client connected,37069027955,37069027955,Pass
+WiFi,client disconnected,client disconnected,37069027955,37069027955,Pass
+SMS,received from,received from,37069027955,37069027955,Pass
+Reboot,from button,from button,37069027955,37069027955,Pass
+Reboot,,ping reboot,,37069027955,Fail
+Reboot,reboot scheduler,reboot scheduler,37069027955,37069027955,Pass
+Reboot,,sms reboot,,37069027955,Fail
+Reboot,web ui,web ui,37069027955,37069027955,Pass
+Switch Events,Port link state,Port link state,37069027955,37069027955,Pass
+Switch Events,Port speed for,Port speed for,37069027955,37069027955,Pass
+Switch Events,changed to DOWN,changed to DOWN,37069027955,37069027955,Pass
+Switch Events,changed to UP,changed to UP,37069027955,37069027955,Pass
+Failover,Switched to main,Switched to main,37069027955,37069027955,Pass
+Failover,Switched to backup,Switched to backup,37069027955,37069027955,Pass
+Web UI,was successful,was successful,37069027955,37069027955,Pass
+Web UI,not successful,not successful,37069027955,37069027955,Pass
+SSH,succeeded,succeeded,37069027955,37069027955,Pass
+SSH,bad,bad,37069027955,37069027955,Pass
+Mobile Data,data connected,data connected,37069027955,37069027955,Pass
+Mobile Data,data disconnected,data disconnected,37069027955,37069027955,Pass
+Switch Topology,Changes in topology,Changes in topology,37069027955,37069027955,Pass
