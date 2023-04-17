@@ -150,7 +150,7 @@ def testMobData(e, header, api_url):
 
     if trig[1] == "mobileon":
         requests.post(msg_url, headers=header, json=dataOff)
-        time.sleep(5)
+        time.sleep(10)
     else:
         requests.post(msg_url, headers=header, json=dataOn)
         time.sleep(80)
@@ -165,6 +165,7 @@ def testMobData(e, header, api_url):
         time.sleep(5)
 
     requests.post(msg_url, headers=header, json=dataOn)
+    time.sleep(30)
 
 def testSimSwitch(e, header, api_url):
     response = test.changeEventConfig(e, header, api_url)
@@ -193,9 +194,9 @@ def testSimSwitch(e, header, api_url):
         body2 = {"data":{"enabled":"0",".type":"sim","id":"cfg01aa0e","on_signal":"1","data_limit":"0","sms_limit":"0","roaming":"0","no_network":"1","denied":"1","fail_flag":"1","interval":"10","retry_count":"3","weak_signal":"-1","data_fail":"1"}}
 
     requests.put(sim_url2, headers=header, json=body2)
-    time.sleep(5)
+    time.sleep(10)
     requests.put(sim_url, headers=header, json=body)
-    time.sleep(30)
+    time.sleep(70)
 
 def testFailover(e, header, api_url, ids):
     get_url = "http://"+IP1+"/api/bulk"
@@ -262,7 +263,6 @@ def testReboot(e, header, header2, api_url, rut):
             body = {"data":{"modem":"3-1","number":e.nrExpected,"message": e.trigger}}
             msg_url = "http://"+IP1+"/api/services/mobile_utilities/sms_messages/send/actions/send"
             rez = requests.post(msg_url, headers=header, json=body)
-            print(rez.text)
             time.sleep(120)
         case "from button":
             ssh = test.connectSSH(None)
@@ -286,7 +286,7 @@ def testTopology(e, header, api_url):
     time.sleep(5)
     response = test.changeEventConfig(e, header, api_url)
     requests.put(e.trigger, headers=header, json=bodyOn)
-    time.sleep(20)
+    time.sleep(60)
 
 def testWiFi(e, header, api_url, header2):
     response = test.changeEventConfig(e, header, api_url)

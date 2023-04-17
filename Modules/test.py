@@ -183,15 +183,15 @@ def testAll(events, rut1, rut2):
 
             checkSMS(events[i], header2)
             passedCommands, failedCommands = checkGotten(events[i], passedCommands, failedCommands)
-            timeout = 3
+            timeout = 5
             i += 1
         except:
             if timeout > 0:
                 timeout = timeout - 1
             else:
-                print("No connection found, retrying...")
+                print("Lost connection rip")
                 quit()
-            print("Lost connection rip")
+            print("No connection found, retrying...")
             time.sleep(10)
 
     terminal.terminal("---", "---", passedCommands, failedCommands, totalCommands, False)
@@ -205,12 +205,6 @@ def setupSMS(header2):
 
     for i in response.json()['data']:
         nr.append(i['id'])
-
-    #if len(response.json()['data']) > 5:
-    #    nr = ["2", "3", "1", "0", str(len(response.json()['data']) - 1)]
-    #else:
-    #    for d in reversed(range(0, len(response.json()['data']))):
-    #        nr.append(str(d))
 
     body = {"data":nr}
     rz = requests.delete(del_ulr, headers=header2, json=body)

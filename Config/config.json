@@ -3,7 +3,7 @@
     "devices": [
         {
             "router": "RUTX11",
-            "number": "+37069027955",
+            "number": "869027973",
             "types": [
                 {
                     "type": "Config",
@@ -314,7 +314,7 @@
         },
         {
             "router": "TEST",
-            "number": "869027955",
+            "number": "869027973",
             "types": [
                 {
                     "type": "Reboot",
@@ -322,7 +322,32 @@
                         {
                             "subtype": "sms reboot",
                             "trigger": "Admin123 reboot",
-                            "expected": ""
+                            "expected": "Rebooted From SMS"
+                        }
+                    ]
+                },
+                {
+                    "type": "Mobile Data",
+                    "subtypes": [
+                        {
+                            "subtype": "data connected",
+                            "trigger": "Admin123 mobileon",
+                            "expected":"Mobile Data Connected"
+                        },
+                        {
+                            "subtype": "data disconnected",
+                            "trigger": "Admin123 mobileoff",
+                            "expected":"Mobile Data Disconnected"
+                        }
+                    ]
+                },
+                {
+                    "type": "Switch Topology",
+                    "subtypes": [
+                        {
+                            "subtype": "Changes in topology",
+                            "trigger": "http://192.168.1.1/api/network/interfaces/config",
+                            "expected":"Changes In Topology"
                         }
                     ]
                 }
