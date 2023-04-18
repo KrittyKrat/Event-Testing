@@ -9,6 +9,31 @@
                     "type": "Config",
                     "subtypes": [
                         {
+                            "subtype": "buttons",
+                            "trigger": "http://192.168.1.1/api/system/administration/buttons/config",
+                            "expected":"Buttons"
+                        },
+                        {
+                            "subtype": "rut_fota",
+                            "trigger": "http://192.168.1.1/api/system/fota/config/general",
+                            "expected":"FOTA"
+                        },
+                        {
+                            "subtype": "wifi_scanner",
+                            "trigger": "http://192.168.1.1/api/network/wireless/wifi_scanner/config/general",
+                            "expected":"Wifi scanner"
+                        },
+                        {
+                            "subtype": "telnetd",
+                            "trigger": "http://192.168.1.1/api/system/access_control/telnet/config/general",
+                            "expected":"Telnet"
+                        },
+                        {
+                            "subtype": "cli",
+                            "trigger": "http://192.168.1.1/api/system/access_control/cli/config/general",
+                            "expected":"CLI"
+                        },
+                        {
                             "subtype": "ip_blockd",
                             "trigger": "http://192.168.1.1/api/system/access_control/security/general/config/general",
                             "expected":"IP block"
@@ -490,294 +515,9 @@
                     "type": "Config",
                     "subtypes": [
                         {
-                            "subtype": "ip_blockd",
-                            "trigger": "http://192.168.1.1/api/system/access_control/security/general/config/general",
-                            "expected":"IP block"
-                        },
-                        {
                             "subtype": "frr",
                             "trigger": "http://192.168.1.1/ubus",
                             "expected":"Dynamic routes"
-                        },
-                        {
-                            "subtype": "email_to_sms",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/sms_gateway/email_to_sms/config/general",
-                            "expected":"Email to SMS"
-                        },
-                        {
-                            "subtype": "avl",
-                            "trigger": "http://192.168.1.1/api/services/gps/avl/config/general",
-                            "expected":"AVL"
-                        },
-                        {
-                            "subtype": "dhcp",
-                            "trigger": "http://192.168.1.1/api/network/dhcp/servers/config/lan",
-                            "expected":"DHCP"
-                        },
-                        {
-                            "subtype": "xl2tpd",
-                            "trigger": "http://192.168.1.1/api/services/l2tp/server/config",
-                            "expected":"L2TP"
-                        },
-                        {
-                            "subtype": "etherwake",
-                            "trigger": "http://192.168.1.1/api/services/wol_setup/config/general",
-                            "expected":"Wake on LAN"
-                        },
-                        {
-                            "subtype": "widget",
-                            "trigger": "http://192.168.1.1/ubus",
-                            "expected":"Widget"
-                        },
-                        {
-                            "subtype": "post_get",
-                            "trigger": "http://192.168.1.1/api/services/io/post_get/config/general",
-                            "expected":"Post/Get"
-                        },
-                        {
-                            "subtype": "stunnel",
-                            "trigger": "http://192.168.1.1/api/services/stunnel/global/config/general",
-                            "expected":"STUNEL"
-                        },
-                        {
-                            "subtype": "sqm",
-                            "trigger": "http://192.168.1.1/api/services/sqm/config",
-                            "expected":"SQM"
-                        },
-                        {
-                            "subtype": "snmptrap",
-                            "trigger": "http://192.168.1.1/api/services/snmp/trap_settings/config/general",
-                            "expected":"SNMP trap"
-                        },
-                        {
-                            "subtype": "snmpd",
-                            "trigger": "http://192.168.1.1/api/services/snmp/settings/config/general",
-                            "expected":"SNMP"
-                        },
-                        {
-                            "subtype": "sms_gateway",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/sms_gateway/auto_reply/config/general",
-                            "expected":"SMS gateway"
-                        },
-                        {
-                            "subtype": "sms_utils",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/sms_rules/config",
-                            "expected":"SMS utils"
-                        },
-                        {
-                            "subtype": "simcard",
-                            "trigger": "http://192.168.1.1/api/network/mobile/simcards/config/cfg01aa0e",
-                            "expected":"Simcard"
-                        },
-                        {
-                            "subtype": "sim_switch",
-                            "trigger": "http://192.168.1.1/api/network/mobile/sim_switch/config/cfg01aa0e",
-                            "expected":"SIM switch"
-                        },
-                        {
-                            "subtype": "samba",
-                            "trigger": "http://192.168.1.1/api/services/samba/general/config/general",
-                            "expected":"Network shares"
-                        },
-                        {
-                            "subtype": "rpcd",
-                            "trigger": "http://192.168.1.1/api/system/users/config",
-                            "expected":"Users management"
-                        },
-                        {
-                            "subtype": "rms_mqtt",
-                            "trigger": "http://192.168.1.1/api/services/cloud_solutions/rms/config/general",
-                            "expected":"RMS"
-                        },
-                        {
-                            "subtype": "quota_limit",
-                            "trigger": "http://192.168.1.1/api/network/interfaces/config/mob1s1a1",
-                            "expected":"Mobile data limit"
-                        },
-                        {
-                            "subtype": "privoxy",
-                            "trigger": "http://192.168.1.1/api/services/privoxy/config/general",
-                            "expected":"Site proxy"
-                        },
-                        {
-                            "subtype": "pptpd",
-                            "trigger": "http://192.168.1.1/api/services/pptp/server/config",
-                            "expected":"PPTP"
-                        },
-                        {
-                            "subtype": "p910nd",
-                            "trigger": "http://192.168.1.1/api/services/usb_tools/p910nd/config/general",
-                            "expected":"Printer server"
-                        },
-                        {
-                            "subtype": "overview",
-                            "trigger": "http://192.168.1.1/api/status/overview/config",
-                            "expected":"Overview"
-                        },
-                        {
-                            "subtype": "operctl",
-                            "trigger": "http://192.168.1.1/api/network/mobile/operator_lists/config",
-                            "expected":"Operator list"
-                        },
-                        {
-                            "subtype": "ntpserver",
-                            "trigger": "http://192.168.1.1/api/services/ntp/server/config/general",
-                            "expected":"NTP server"
-                        },
-                        {
-                            "subtype": "ntpclient",
-                            "trigger": "http://192.168.1.1/api/services/ntp/client/config/general",
-                            "expected":"NTP client"
-                        },
-                        {
-                            "subtype": "mwan3",
-                            "trigger": "http://192.168.1.1/api/network/mwan3/rules/config",
-                            "expected":"Failover"
-                        },
-                        {
-                            "subtype": "multi_wifi",
-                            "trigger": "http://192.168.1.1/api/network/wireless/multi_ap/interfaces/config",
-                            "expected":"Multi AP"
-                        },
-                        {
-                            "subtype": "modbusgateway",
-                            "trigger": "http://192.168.1.1/api/services/modbus/gateway/config/general",
-                            "expected":"Modbus gateway"
-                        },
-                        {
-                            "subtype": "modbus_master",
-                            "trigger": "http://192.168.1.1/api/services/modbus/tcp/config",
-                            "expected":"TCP master"
-                        },
-                        {
-                            "subtype": "modbus_data_sender",
-                            "trigger": "http://192.168.1.1/api/services/data_sender/config",
-                            "expected":"Data to server"
-                        },
-                        {
-                            "subtype": "modbus",
-                            "trigger": "http://192.168.1.1/api/services/modbus/tcp_slave/config/general",
-                            "expected":"Modbus"
-                        },
-                        {
-                            "subtype": "upnpd",
-                            "trigger": "http://192.168.1.1/api/services/upnp/settings/config/general",
-                            "expected":"UPNP"
-                        },
-                        {
-                            "subtype": "vrrpd",
-                            "trigger": "http://192.168.1.1/api/services/vrrp/config",
-                            "expected":"VRRP"
-                        },
-                        {
-                            "subtype": "wireless",
-                            "trigger": "http://192.168.1.1/api/network/wireless/devices/config/radio0",
-                            "expected":"Wireless"
-                        },
-                        {
-                            "subtype": "profiles",
-                            "trigger": "http://192.168.1.1/api/system/profiles/config",
-                            "expected":"Profiles"
-                        },
-                        {
-                            "subtype": "mosquitto",
-                            "trigger": "http://192.168.1.1/api/services/mqtt_broker/config/general",
-                            "expected":"MQTT Broker"
-                        },
-                        {
-                            "subtype": "mqtt_pub",
-                            "trigger": "http://192.168.1.1/api/services/mqtt_pub/config/general",
-                            "expected":"MQTT Publisher"
-                        },
-                        {
-                            "subtype": "network",
-                            "trigger": "http://192.168.1.1/api/network/interfaces/config",
-                            "expected":"Network"
-                        },
-                        {
-                            "subtype": "dropbear",
-                            "trigger": "http://192.168.1.1/api/system/access_control/ssh/config/general",
-                            "expected":"SSH"
-                        },
-                        {
-                            "subtype": "ipsec",
-                            "trigger": "http://192.168.1.1/api/services/ipsec/config",
-                            "expected":"IPSEC"
-                        },
-                        {
-                            "subtype": "ioman",
-                            "trigger": "http://192.168.1.1/api/services/io/scheduler/config/general",
-                            "expected":"IO Scheduler"
-                        },
-                        {
-                            "subtype": "iojuggler",
-                            "trigger": "http://192.168.1.1/api/services/io/juggler/config/general",
-                            "expected":"IO Juggler"
-                        },
-                        {
-                            "subtype": "hostblock",
-                            "trigger": "http://192.168.1.1/api/services/webfilter/config/general",
-                            "expected":"Webfilter"
-                        },
-                        {
-                            "subtype": "gps",
-                            "trigger": "http://192.168.1.1/api/services/gps/general/config/general",
-                            "expected":"GPS"
-                        },
-                        {
-                            "subtype": "fstab",
-                            "trigger": "http://192.168.1.1/api/services/usb_tools/general/config/general",
-                            "expected":"USB"
-                        },
-                        {
-                            "subtype": "firewall",
-                            "trigger": "http://192.168.1.1/api/network/firewall/general_settings/config/general",
-                            "expected":"Firewall"
-                        },
-                        {
-                            "subtype": "dmvpn",
-                            "trigger": "http://192.168.1.1/api/services/dmvpn/config",
-                            "expected":"DMVPN"
-                        },
-                        {
-                            "subtype": "ddns",
-                            "trigger": "http://192.168.1.1/api/services/ddns/config",
-                            "expected":"DDNS"
-                        },
-                        {
-                            "subtype": "chilli",
-                            "trigger": "http://192.168.1.1/api/services/hotspot/groups/config",
-                            "expected":"Hotspot"
-                        },
-                        {
-                            "subtype": "blesem",
-                            "trigger": "http://192.168.1.1/api/services/bluetooth/general/config/general",
-                            "expected":"Bluetooth"
-                        },
-                        {
-                            "subtype": "call_utils",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/call_utilities/general/config/general",
-                            "expected":"Call Utilities"
-                        },
-                        {
-                            "subtype": "periodic_reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
-                            "expected":"Periodic Reboot"
-                        },
-                        {
-                            "subtype": "ping_reboot",
-                            "trigger": "http://192.168.1.1/api/services/auto_reboot/ping/config",
-                            "expected":"Ping Reboot"
-                        },
-                        {
-                            "subtype": "events_reporting",
-                            "trigger": "http://192.168.1.1/api/services/events_reporting/config",
-                            "expected":"Events Reporting"
-                        },
-                        {
-                            "subtype": "openvpn",
-                            "trigger": "http://192.168.1.1/api/services/openvpn/config",
-                            "expected":"OpenVPN"
                         }
                     ]
                 }

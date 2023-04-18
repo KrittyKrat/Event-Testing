@@ -20,6 +20,12 @@ def testConfig(e, header, api_url):
 def createTemp(header, event):
     post = False
     match event.subtype:
+        case "frr":
+            body = {"jsonrpc":"2.0","id":23,"method":"call","params":["4ce875b66e19a9f4998b7490a03efb09","uci","add",{"config":"frr","values":{},"type":"nhrp_instance","name":"asd"}]}
+            post = True
+        case "multi_wifi":
+            body = {"data":{"device":"radio0","network":str(random.randrange(9999)),"fwzone":"wan"}}
+            post = True
         case "xl2tpd":
             body = {"data":{"id":str(random.randrange(9999)),".type":"service"}}
             post = True
@@ -68,10 +74,18 @@ def createTemp(header, event):
         case "profiles":
             body = {"data":{"id":str(random.randrange(9999)),"from_current_profile":"0",".type":"profile"}}
             post = True
+        case "buttons":
+            body = {"data":[{"min":"0",".type":"button","max":"5","id":"cfg015d81","enabled":"0"}]}
+        case "rut_fota":
+            body = {"data":{"enabled":"0",".type":"rut_fota","id":"general"}}
+        case "wifi_scanner":
+            body = {"data":{".type":"section","interval":"10","id":"general","two_g_enabled":"1"}}
+        case "telnetd":
+            body = {"data":{"enable":"1","id":"general",".type":"telnetd"}}
+        case "cli":
+            body = {"data":{"port":"4200-4220","shell_limit":"5","enable":"1","_cliWanAccess":"0","id":"general",".type":"status"}}
         case "ip_blockd":
             body = {"data":{"enabled":"0",".type":"globals","max_attempt_count":"10","id":"general","reboot_clear":"0"}}
-        case "frr":
-            body = [{"jsonrpc":"2.0","id":25,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"frr","section":"bgp","values":{"enabled":True}}]},{"jsonrpc":"2.0","id":26,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","delete",{"config":"frr","section":"main_instance","options":["redistribute"]}]}]
         case "email_to_sms":
             body = {"data":{"enabled":"1",".type":"pop3","limit":"5","id":"general","host":"test.com","port":"80","username":"Asd","password":"Asdasd123","ssl":"0","time":"min","min":"1"}}
         case "avl":
@@ -167,10 +181,20 @@ def deleteTemp(header, event, id):
 
     delete = False
     match event.subtype:
+        case "buttons":
+            body = {"data":[{"min":"0",".type":"button","max":"5","id":"cfg015d81","enabled":"1"}]}
+        case "rut_fota":
+            body = {"data":{"enabled":"1",".type":"rut_fota","id":"general"}}
+        case "wifi_scanner":
+            body = {"data":{".type":"section","interval":"10","id":"general","two_g_enabled":"0"}}
+        case "telnetd":
+            body = {"data":{"enable":"0","id":"general",".type":"telnetd"}}
+        case "cli":
+            body = {"data":{"port":"4200-4220","shell_limit":"5","enable":"0","_cliWanAccess":"0","id":"general",".type":"status"}}
         case "ip_blockd":
             body = {"data":{"enabled":"1",".type":"globals","max_attempt_count":"10","id":"general","reboot_clear":"0"}}
         case "frr":
-            body = {"jsonrpc":"2.0","id":27,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","apply",{"timeout":10}]}
+            body = {"jsonrpc":"2.0","id":30,"method":"call","params":["4ce875b66e19a9f4998b7490a03efb09","uci","apply",{"timeout":10}]}
         case "email_to_sms":
             body = {"data":{"enabled":"0",".type":"pop3","limit":"5","id":"general","host":"test.com","port":"80","username":"Asd","password":"Asdasd123","ssl":"0","time":"min","min":"1"}}
         case "avl":
@@ -254,7 +278,9 @@ def deleteTemp(header, event, id):
             body2 = {"data":{"enabled":"1",".type":"wifi-iface","network":"Test","encryption":"none","id":"1","ssid":"multi_ap","disassoc_low_ack":"1","short_preamble":"1","mode":"sta","bssid":"","dtim_period":"","wpa_group_rekey":"","skip_inactivity_poll":"0","max_inactivity":"","max_listen_interval":"","r0kh":"","r1kh":""}}
             api_url = "http://192.168.1.1/api/network/wireless/devices/config/radio0/interfaces"
             api_url2 = api_url+"/"+str(id)
+            time.sleep(1)
             requests.put(api_url2, headers=header, json=body2)
+            time.sleep(1)
         case "widget":
             body2 = [{"jsonrpc":"2.0","id":24,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"widget","section":"cfg028e09","values":{"enabled":"1"}}]}]
             api_url = event.trigger
@@ -266,7 +292,7 @@ def deleteTemp(header, event, id):
             response = requests.post(api_url, headers=header, json=body)
             return
         case "frr":
-            body2 = [{"jsonrpc":"2.0","id":25,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"frr","section":"bgp","values":{"enabled":False}}]},{"jsonrpc":"2.0","id":26,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","delete",{"config":"frr","section":"main_instance","options":["redistribute"]}]}]
+            body2 = {"jsonrpc":"2.0","id":16,"method":"call","params":["4ce875b66e19a9f4998b7490a03efb09","uci","delete",{"config":"frr","section":"asd"}]}
             api_url = event.trigger
             time.sleep(1)
             response = requests.post(api_url, headers=header, json=body)
