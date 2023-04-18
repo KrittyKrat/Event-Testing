@@ -1,0 +1,50 @@
+Event,Gotten,Expected,Number Got,Number Sent,Passed
+Config,UPNP,UPNP,869027973,869027973,Pass
+Config,VRRP,VRRP,869027973,869027973,Pass
+Config,Wireless,Wireless,869027973,869027973,Pass
+Config,Profiles,Profiles,869027973,869027973,Pass
+Config,MQTT Broker,MQTT Broker,869027973,869027973,Pass
+Config,MQTT Publisher,MQTT Publisher,869027973,869027973,Pass
+Config,Network,Network,869027973,869027973,Pass
+Config,SSH,SSH,869027973,869027973,Pass
+Config,IPSEC,IPSEC,869027973,869027973,Pass
+Config,IO Scheduler,IO Scheduler,869027973,869027973,Pass
+Config,IO Juggler,IO Juggler,869027973,869027973,Pass
+Config,Webfilter,Webfilter,869027973,869027973,Pass
+Config,GPS,GPS,869027973,869027973,Pass
+Config,USB,USB,869027973,869027973,Pass
+Config,Firewall,Firewall,869027973,869027973,Pass
+Config,DMVPN,DMVPN,869027973,869027973,Pass
+Config,DDNS,DDNS,869027973,869027973,Pass
+Config,Hotspot,Hotspot,869027973,869027973,Pass
+Config,Bluetooth,Bluetooth,869027973,869027973,Pass
+Config,Call Utilities,Call Utilities,869027973,869027973,Pass
+Config,Periodic Reboot,Periodic Reboot,869027973,869027973,Pass
+Config,Ping Reboot,Ping Reboot,869027973,869027973,Pass
+Config,Events Reporting,Events Reporting,869027973,869027973,Pass
+Config,OpenVPN,OpenVPN,869027973,869027973,Pass
+DHCP,LAN,LAN,869027973,869027973,Pass
+DHCP,WiFi,WiFi,869027973,869027973,Pass
+SIM switch,Switched to SIM1,Switched to SIM1,869027973,869027973,Pass
+SIM switch,,Switched to SIM2,,869027973,Fail
+WiFi,Client Connected,Client Connected,869027973,869027973,Pass
+WiFi,Client Disconnected,Client Disconnected,869027973,869027973,Pass
+SMS,SMS Received,SMS Received,869027973,869027973,Pass
+Reboot,Rebooted From Button,Rebooted From Button,869027973,869027973,Pass
+Reboot,Rebooted From Ping,Rebooted From Ping,869027973,869027973,Pass
+Reboot,Rebooted From Scheduler,Rebooted From Scheduler,869027973,869027973,Pass
+Reboot,Rebooted From SMS,Rebooted From SMS,869027973,869027973,Pass
+Reboot,Rebooted From WebUI,Rebooted From WebUI,869027973,869027973,Pass
+Switch Events,Port Link State Change,Port Link State Change,869027973,869027973,Pass
+Switch Events,Port Speed Change,Port Speed Change,869027973,869027973,Pass
+Switch Events,Port State Changed To Down,Port State Changed To Down,869027973,869027973,Pass
+Switch Events,Port State Changed To Up,Port State Changed To Up,869027973,869027973,Pass
+Failover,,Switched To Main,,869027973,Fail
+Failover,Switched To Backup,Switched To Backup,869027973,869027973,Pass
+Web UI,WebUI Login Successful,WebUI Login Successful,869027973,869027973,Pass
+Web UI,WebUI Login Unsuccessful,WebUI Login Unsuccessful,869027973,869027973,Pass
+SSH,SSH Login Successful,SSH Login Successful,869027973,869027973,Pass
+SSH,WebUI Login Unsuccessful,WebUI Login Unsuccessful,869027973,869027973,Pass
+Mobile Data,Mobile Data Connected,Mobile Data Connected,869027973,869027973,Pass
+Mobile Data,Mobile Data Disconnected,Mobile Data Disconnected,869027973,869027973,Pass
+Switch Topology,Changes In Topology,Changes In Topology,869027973,869027973,Pass

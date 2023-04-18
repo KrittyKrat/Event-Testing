@@ -20,6 +20,33 @@ def testConfig(e, header, api_url):
 def createTemp(header, event):
     post = False
     match event.subtype:
+        case "xl2tpd":
+            body = {"data":{"id":str(random.randrange(9999)),".type":"service"}}
+            post = True
+        case "widget":
+            body = [{"jsonrpc":"2.0","id":24,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"widget","section":"cfg028e09","values":{"enabled":"0"}}]}]
+            post = True
+        case "sqm":
+            body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
+        case "sms_utils":
+            body = {"data":{"smstext":"12345","action":"gps"}}
+            post = True
+        case "rpcd":
+            body = {"data":{"username":str(random.randrange(9999)),"password":"Asdasd123","group":"user"}}
+            post = True
+        case "pptpd":
+            body = {"data":{"id":str(random.randrange(9999)),".type":"service"}}
+            post = True
+        case "operctl":
+            body = {"data":{"name":str(random.randrange(9999))}}
+            post = True
+        case "mwan3":
+            body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
+        case "mwan3":
+            body = {"data":{"id":str(random.randrange(9999))}}
+            post = True
         case "ddns":
             body = {"data":{"id":str(random.randrange(9999))}}
             post = True
@@ -41,6 +68,52 @@ def createTemp(header, event):
         case "profiles":
             body = {"data":{"id":str(random.randrange(9999)),"from_current_profile":"0",".type":"profile"}}
             post = True
+        case "ip_blockd":
+            body = {"data":{"enabled":"0",".type":"globals","max_attempt_count":"10","id":"general","reboot_clear":"0"}}
+        case "frr":
+            body = [{"jsonrpc":"2.0","id":25,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"frr","section":"bgp","values":{"enabled":True}}]},{"jsonrpc":"2.0","id":26,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","delete",{"config":"frr","section":"main_instance","options":["redistribute"]}]}]
+        case "email_to_sms":
+            body = {"data":{"enabled":"1",".type":"pop3","limit":"5","id":"general","host":"test.com","port":"80","username":"Asd","password":"Asdasd123","ssl":"0","time":"min","min":"1"}}
+        case "avl":
+            body = {"data":{"enabled":"1","static_navigation":"0","id":"general","con_cont":"0","port":"8501","hostname":"192.168.0.1","proto":"tcp","send_retry":"0",".type":"section"}}
+        case "dhcp":
+            body = {"data":{".type":"dhcp","id":"lan","ignore":"enable","end_ip":"192.168.1.150","leasetime":"12h","force":"0","start_ip":"192.168.1.100","dynamicdhcp":"0","netmask":"","dhcp_option":[],"force_options":"0","ra":"","dhcpv6":"","ndp":"","dns":[],"domain":[]}}
+        case "etherwake":
+            body = {"data":{"id":"general","broadcast":"1",".type":"etherwake"}}
+        case "post_get":
+            body = {"data":{"password":"Asdasd123",".type":"post_get","allow":["io_state","io_type","io_value"],"id":"general","enabled":"1","username":"asd","password_confirm":"Asdasd123"}}
+        case "stunnel":
+            body = {"data":{"id":"general",".type":"globals","enabled":"1","debug":"5","use_alt":"0"}}
+        case "snmptrap":
+            body = {"data":{"enabled":"1",".type":"server","community":"public","id":"general","host":"","port":"162"}}
+        case "snmpd":
+            body = {"data":{"enabled":"1","v2cmode":"1","v1mode":"1","ipfamily":"ipv4","port":"161","id":"general",".type":"agent","remoteAccess":"0","v3mode":"0"}}
+        case "sms_gateway":
+            body = {"data":{"enabled":"1",".type":"reply","delete_sms":"0","id":"general","mode":"everyone","every_sms":"0","tel":"","msg":"Hello"}}
+        case "simcard":
+            body = {"data":{"volte":"auto","deny_roaming":"0","service":"auto","pincode":"1234","signal_reset_enabled":"0","band":"auto",".type":"sim","id":"cfg01aa0e","primary":"1","sms_limit":"day","enable_sms_limit":"1","period":"0","sms_limit_num":"5000","operlist":"0"}}
+        case "sim_switch":
+            body = {"data":{"retry_count":"3","no_network":"0","on_signal":"0","interval":"10","enabled":"1",".type":"sim","id":"cfg01aa0e","denied":"0","weak_signal":"","data_limit":"0","roaming":"0","data_fail":"","fail_flag":"0","sms_limit":"0"}}
+        case "samba":
+            body = {"data":{"workgroup":"WORKGROUP",".type":"samba","description":"Router share","id":"general","name":"Router_share","homes":"1","enabled":"1"}}
+        case "rms_mqtt":
+            body = {"data":{".type":"rms_connect_mqtt","enable":"1","id":"general","remote":"rms.teltonika-networks.com","port":"10"}}
+        case "quota_limit":
+            body = {"data":{"force_apn":"3200","fwzone":"wan","sim":"1","metric":"4","delegate":"1","force_link":"0","proto":"wwan","method":"nat",".type":"interface","id":"mob1s1a1","pdptype":"ip","auto_apn":"0","dns":[],"mtu":"","ip4table":"","mob_limit_enabled":"1","period":"day","reset_hour":"0","enable_warning":"0","data_limit":"1000"}}
+        case "privoxy":
+            body = {"data":{"enabled":"1","_mode":"blacklist","id":"general",".type":"privoxy","url":[]}}
+        case "p910nd":
+            body = {"data":{"enabled":"1","port":"9100","device":"/dev/usb/lp0","id":"general",".type":"p910nd","bidirectional":"1"}}
+        case "overview":
+            body = {"data":[{"id":"cfg010a5c","position":"1","enabled":"0"}]}
+        case "ntpserver":
+            body = {"data":{"enabled":"1",".type":"ntpserver","id":"general"}}
+        case "ntpclient":
+            body = {"data":{"enabled":"1",".type":"ntpclient","freq":"0","interval":"86400","id":"general","save":"0","force":"0","count":"","sync_enabled":"0","tmz_sync_enabled":"1"}}
+        case "modbusgateway":
+            body = {"data":{"enabled":"1",".type":"gateway","id":"general","response":"response","host":"127.0.0.1","port":"1883","request":"request","keepalive":"5","qos":"2","tls":"0","user":"","pass":"","client_id":""}}
+        case "modbus":
+            body = {"data":{".type":"modbus","id":"general","keepconn":"1","allow_ra":"0","enabled":"1","port":"502","device_id":"1","md_data_type":"0","timeout":"0","clientregs":"0"}}
         case "gps":
             body = {"data":{"enabled":"1",".type":"section","glonass_sup":"0","id":"general","beidou_sup":"0","galileo_sup":"0"}}
         case "fstab":
@@ -84,12 +157,64 @@ def createTemp(header, event):
         response = requests.post(api_url, headers=header, json=body)
     else:
         response = requests.put(api_url, headers=header, json=body)
-        
-    return response.json()['data']['id']
+
+    try:
+        return response.json()['data']['id']
+    except:
+        return ""
 
 def deleteTemp(header, event, id):
+
     delete = False
     match event.subtype:
+        case "ip_blockd":
+            body = {"data":{"enabled":"1",".type":"globals","max_attempt_count":"10","id":"general","reboot_clear":"0"}}
+        case "frr":
+            body = {"jsonrpc":"2.0","id":27,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","apply",{"timeout":10}]}
+        case "email_to_sms":
+            body = {"data":{"enabled":"0",".type":"pop3","limit":"5","id":"general","host":"test.com","port":"80","username":"Asd","password":"Asdasd123","ssl":"0","time":"min","min":"1"}}
+        case "avl":
+            body = {"data":{"enabled":"0","static_navigation":"0","id":"general","con_cont":"0","port":"8501","hostname":"192.168.0.1","proto":"tcp","send_retry":"0",".type":"section"}}
+        case "dhcp":
+            body = {"data":{".type":"dhcp","id":"lan","ignore":"enable","end_ip":"192.168.1.150","leasetime":"12h","force":"0","start_ip":"192.168.1.100","dynamicdhcp":"1","netmask":"","dhcp_option":[],"force_options":"0","ra":"","dhcpv6":"","ndp":"","dns":[],"domain":[]}}
+        case "etherwake":
+            body = {"data":{"id":"general","broadcast":"0",".type":"etherwake"}}
+        case "widget":
+            body = {"jsonrpc":"2.0","id":25,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","apply",{"timeout":10}]}
+        case "post_get":
+            body = {"data":{"enabled":"0",".type":"post_get","allow":["io_state","io_type","io_value"],"id":"general","username":"asd","password_confirm":""}}
+        case "stunnel":
+            body = {"data":{"id":"general",".type":"globals","enabled":"0","debug":"5","use_alt":"0"}}
+        case "snmptrap":
+            body = {"data":{"enabled":"0",".type":"server","community":"public","id":"general","host":"","port":"162"}}
+        case "snmpd":
+            body = {"data":{"enabled":"0","v2cmode":"1","v1mode":"1","ipfamily":"ipv4","port":"161","id":"general",".type":"agent","remoteAccess":"0","v3mode":"0"}}
+        case "sms_gateway":
+            body = {"data":{"enabled":"0",".type":"reply","delete_sms":"0","id":"general","mode":"everyone","every_sms":"0","tel":"","msg":"Hello"}}
+        case "simcard":
+            body = {"data":{"volte":"auto","deny_roaming":"0","service":"auto","pincode":"1234","signal_reset_enabled":"0","band":"auto",".type":"sim","id":"cfg01aa0e","primary":"1","sms_limit":"day","enable_sms_limit":"0","period":"0","sms_limit_num":"5000","operlist":"0"}}
+        case "sim_switch":
+            body = {"data":{"retry_count":"3","no_network":"0","on_signal":"0","interval":"10","enabled":"0",".type":"sim","id":"cfg01aa0e","denied":"0","weak_signal":"","data_limit":"0","roaming":"0","data_fail":"","fail_flag":"0","sms_limit":"0"}}
+        case "samba":
+            body = {"data":{"workgroup":"WORKGROUP",".type":"samba","description":"Router share","id":"general","name":"Router_share","homes":"1","enabled":"0"}}
+        case "rms_mqtt":
+            body = {"data":{".type":"rms_connect_mqtt","enable":"1","id":"general","remote":"rms.teltonika-networks.com","port":"15009"}}
+        case "quota_limit":
+            body = {"data":{"force_apn":"3200","fwzone":"wan","sim":"1","data_limit":"","enable_warning":"","metric":"4","delegate":"1","force_link":"0","proto":"wwan","method":"nat",".type":"interface","id":"mob1s1a1","reset_hour":"","mob_limit_enabled":"0","period":"","pdptype":"ip","auto_apn":"0","dns":[],"mtu":"","ip4table":""}}
+        case "privoxy":
+            body = {"data":{"enabled":"0","_mode":"blacklist","id":"general",".type":"privoxy","url":[]}}
+        case "p910nd":
+            body = {"data":{"enabled":"0","port":"9100","device":"/dev/usb/lp0","id":"general",".type":"p910nd","bidirectional":"1"}}
+        case "overview":
+            body = {"data":[{"id":"cfg010a5c","position":"1","enabled":"1"}]}
+        case "ntpserver":
+            body = {"data":{"enabled":"0",".type":"ntpserver","id":"general"}}
+        case "ntpclient":
+            body = {"data":{"enabled":"1",".type":"ntpclient","freq":"0","interval":"86400","id":"general","save":"0","force":"0","count":"","sync_enabled":"0","tmz_sync_enabled":"0"}}
+        case "modbusgateway":
+            body = {"data":{"enabled":"0",".type":"gateway","id":"general","response":"response","host":"127.0.0.1","port":"1883","request":"request","keepalive":"5","qos":"2","tls":"0","user":"","pass":"","client_id":""}}
+        case "modbus":
+            body = {"data":{".type":"modbus","id":"general","keepconn":"1","allow_ra":"0","enabled":"0","port":"502","device_id":"1","md_data_type":"0","timeout":"0","clientregs":"0"}}
         case "call_utils":
             body = {"data":{"id":"general",".type":"call","action":"reject","line_close_time":""}}
         case "blesem":
@@ -124,7 +249,34 @@ def deleteTemp(header, event, id):
             body = {"data":[id]}
             delete = True
 
-    api_url = event.trigger
+    match event.subtype:
+        case "multi_wifi":
+            body2 = {"data":{"enabled":"1",".type":"wifi-iface","network":"Test","encryption":"none","id":"1","ssid":"multi_ap","disassoc_low_ack":"1","short_preamble":"1","mode":"sta","bssid":"","dtim_period":"","wpa_group_rekey":"","skip_inactivity_poll":"0","max_inactivity":"","max_listen_interval":"","r0kh":"","r1kh":""}}
+            api_url = "http://192.168.1.1/api/network/wireless/devices/config/radio0/interfaces"
+            api_url2 = api_url+"/"+str(id)
+            requests.put(api_url2, headers=header, json=body2)
+        case "widget":
+            body2 = [{"jsonrpc":"2.0","id":24,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"widget","section":"cfg028e09","values":{"enabled":"1"}}]}]
+            api_url = event.trigger
+            time.sleep(1)
+            response = requests.post(api_url, headers=header, json=body)
+            time.sleep(1)
+            response = requests.post(api_url, headers=header, json=body2)
+            time.sleep(1)
+            response = requests.post(api_url, headers=header, json=body)
+            return
+        case "frr":
+            body2 = [{"jsonrpc":"2.0","id":25,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"frr","section":"bgp","values":{"enabled":False}}]},{"jsonrpc":"2.0","id":26,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","delete",{"config":"frr","section":"main_instance","options":["redistribute"]}]}]
+            api_url = event.trigger
+            time.sleep(1)
+            response = requests.post(api_url, headers=header, json=body)
+            time.sleep(1)
+            response = requests.post(api_url, headers=header, json=body2)
+            time.sleep(1)
+            response = requests.post(api_url, headers=header, json=body)
+            return
+        case other:
+            api_url = event.trigger
 
     if delete:
         response = requests.delete(api_url, headers=header, json=body)
@@ -184,7 +336,7 @@ def testSimSwitch(e, header, api_url):
     requests.put(sim_url, headers=header, json=body)
     time.sleep(10)
     requests.put(sim_url2, headers=header, json=body2)
-    time.sleep(70)
+    time.sleep(100)
 
     if e.subtype == "to SIM1":
         body = {"data":{"band":"auto","volte":"auto","deny_roaming":"0","id":"cfg02aa0e","primary":"0","pincode":"1234","signal_reset_enabled":"0","enable_sms_limit":"0",".type":"sim","service":"auto","operlist":"0"}}
@@ -196,7 +348,7 @@ def testSimSwitch(e, header, api_url):
     requests.put(sim_url2, headers=header, json=body2)
     time.sleep(10)
     requests.put(sim_url, headers=header, json=body)
-    time.sleep(70)
+    time.sleep(120)
 
 def testFailover(e, header, api_url, ids):
     get_url = "http://"+IP1+"/api/bulk"
@@ -244,7 +396,7 @@ def testReboot(e, header, header2, api_url, rut):
             tempId = rez.json()['data']['id']
             body = {"data":{".type":"ping_reboot","retry":"1","id":tempId,"ip_type":"ipv4","packet_size":"56","time_out":"1","enable":"1","type":"ping","action":"1","time":"5","host":"192.168.55.55","stop_action":"0","number":"","interface":"1"}}
             rez = requests.put(e.trigger + "/" + tempId, headers=header, json=body)
-            time.sleep(420)
+            time.sleep(400)
             header = {"Authorization": "Bearer " + test.getToken(rut, IP1)}
             requests.delete(e.trigger, headers=header, json={"data":[tempId]})
         case "reboot scheduler":

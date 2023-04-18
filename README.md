@@ -46,31 +46,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "mosquitto",
                             "trigger": "http://192.168.1.1/api/services/mqtt_broker/config/general",
                             "expected":"MQTT Broker"
-                        },
-                        {
-                            "subtype": "network",
-                            "trigger": "http://192.168.1.1/api/network/interfaces/config",
-                            "expected":"Network"
-                        },
-                        {
-                            "subtype": "ioman",
-                            "trigger": "http://192.168.1.1/api/services/io/scheduler/config/general",
-                            "expected":"IO Scheduler"
-                        },
-                        {
-                            "subtype": "firewall",
-                            "trigger": "http://192.168.1.1/api/network/firewall/general_settings/config/general",
-                            "expected":"Firewall"
-                        },
-                        {
-                            "subtype": "dmvpn",
-                            "trigger": "http://192.168.1.1/api/services/dmvpn/config",
-                            "expected":"DMVPN"
-                        },
-                        {
-                            "subtype": "ddns",
-                            "trigger": "http://192.168.1.1/api/services/ddns/config",
-                            "expected":"DDNS"
                         }
                     ]
                 },
@@ -93,11 +68,6 @@ The command file must be a .json and it's format you can see in the example belo
                     "type": "SIM switch",
                     "subtypes": [
                         {
-                            "subtype": "to SIM1",
-                            "trigger": "",
-                            "expected":"Switched to SIM1"
-                        },
-                        {
                             "subtype": "to SIM2",
                             "trigger": "",
                             "expected":"Switched to SIM2"
@@ -111,11 +81,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "client connected",
                             "trigger": "00:1E:42:24:D7:18 RUT_D718_2G Ua98KhZz test",
                             "expected":"Client Connected"
-                        },
-                        {
-                            "subtype": "client disconnected",
-                            "trigger": "test",
-                            "expected":"Client Disconnected"
                         }
                     ]
                 },
@@ -141,11 +106,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "reboot scheduler",
                             "trigger": "http://192.168.1.1/api/services/auto_reboot/periodic/config",
                             "expected": "Rebooted From Scheduler"
-                        },
-                        {
-                            "subtype": "web ui",
-                            "trigger": "http://192.168.1.1/api/system/administration/general/actions/reboot",
-                            "expected": "Rebooted From WebUI"
                         }
                     ]
                 },
@@ -156,11 +116,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "Port link state",
                             "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
                             "expected": "Port Link State Change"
-                        },
-                        {
-                            "subtype": "changed to DOWN",
-                            "trigger": "http://192.168.1.1/api/services/port_mirroring/config/general",
-                            "expected": "Port State Changed To Down"
                         }
                     ]
                 }
@@ -177,11 +132,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "Switched to main",
                             "trigger": "1",
                             "expected":"Switched To Main"
-                        },
-                        {
-                            "subtype": "Switched to backup",
-                            "trigger": "0",
-                            "expected":"Switched To Backup"
                         }
                     ]
                 },
@@ -192,11 +142,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "was successful",
                             "trigger": "admin Admin123",
                             "expected":"WebUI Login Successful"
-                        },
-                        {
-                            "subtype": "not successful",
-                            "trigger": "user based",
-                            "expected":"WebUI Login Unsuccessful"
                         }
                     ]
                 },
@@ -207,11 +152,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "succeeded",
                             "trigger": "192.168.1.1 root Admin123",
                             "expected":"SSH Login Successful"
-                        },
-                        {
-                            "subtype": "bad",
-                            "trigger": "192.168.1.1 root cringe",
-                            "expected":"WebUI Login Unsuccessful"
                         }
                     ]
                 },
@@ -222,11 +162,6 @@ The command file must be a .json and it's format you can see in the example belo
                             "subtype": "data connected",
                             "trigger": "Admin123 mobileon",
                             "expected":"Mobile Data Connected"
-                        },
-                        {
-                            "subtype": "data disconnected",
-                            "trigger": "Admin123 mobileoff",
-                            "expected":"Mobile Data Disconnected"
                         }
                     ]
                 },

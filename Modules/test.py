@@ -222,13 +222,13 @@ def checkSMS(e, header2):
             if(d['message'] == e.expected):
                 e.gotten = e.expected
                 e.nrGotten = e.nrExpected
-                setupSMS(header2)
+                #setupSMS(header2)
                 return
             else:
                 temp = d['message']
                 tempNr = d['sender']
 
-        setupSMS(header2)
+        #setupSMS(header2)
         time.sleep(1.5)
 
     e.gotten  = temp
