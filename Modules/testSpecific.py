@@ -74,6 +74,9 @@ def createTemp(header, event):
         case "profiles":
             body = {"data":{"id":str(random.randrange(9999)),"from_current_profile":"0",".type":"profile"}}
             post = True
+        case "rs_console" | "rs_modem" | "rs_modbus" | "rs_overip":
+            body = {"data":{"name":str(random.randrange(9999)),"device":"/dev/rs232"}}
+            post = True
         case "buttons":
             body = {"data":[{"min":"0",".type":"button","max":"5","id":"cfg015d81","enabled":"0"}]}
         case "rut_fota":
@@ -171,7 +174,7 @@ def createTemp(header, event):
         response = requests.post(api_url, headers=header, json=body)
     else:
         response = requests.put(api_url, headers=header, json=body)
-
+        
     try:
         return response.json()['data']['id']
     except:

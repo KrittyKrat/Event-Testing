@@ -1,0 +1,5 @@
+Event,Gotten,Expected,Number Got,Number Sent,Passed
+Config,RS overip,RS overip,869463329,869463329,Pass
+Config,RS console,RS console,869463329,869463329,Pass
+Config,RS modem,RS modem,869463329,869463329,Pass
+Config,RS modbus,RS modbus,869463329,869463329,Pass

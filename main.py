@@ -9,10 +9,11 @@ def main():
     jsonFile = args.file
     rut1 = args.rut1
     rut2 = args.rut2
+    mod = args.mod
 
     events = inUtil.readConfigFile(routerName, jsonFile)
     print("Router being tested: " + routerName)
-    test.testAll(events, rut1, rut2)
+    test.testAll(events, rut1, rut2, mod)
     outUtil.writeToCSV(events, routerName)
 
 if __name__ == "__main__":

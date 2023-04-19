@@ -11,7 +11,7 @@ Then you must connect your desired device to your computer using an ethernet cab
 #### Program
 You can run the program using:
 ```
-python3 main.py [--name] "router name" [--file] "config file location" [--rut1] "Main router parameters" [--rut2] "Second router parameters"
+python3 main.py [--name] "router name" [--file] "config file location" [--rut1] "Main router parameters" [--rut2] "Second router parameters" [--mod] "Second routers modem id"
 ```
 The router name and file are mandatory arguments and must be pasted correctly. Both router variables are optional if you decide to customize your connection and want to set your own variables for the ip, username and password. The default for rut1 - 192.168.1.1 admin Admin123, rut2 - 192.168.1.2 admin Admin123. Here are a few examples of how to use the program:
 ```

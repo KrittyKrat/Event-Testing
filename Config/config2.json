@@ -1,0 +1,36 @@
+{
+    "testNumber":"863897689",
+    "devices": [
+        {
+            "router": "RUT956",
+            "number": "869463329",
+            "types": [
+                {
+                    "type": "Config",
+                    "subtypes": [
+                        {
+                            "subtype": "rs_overip",
+                            "trigger": "http://192.168.1.2/api/services/overip/config",
+                            "expected":"RS overip"
+                        },
+                        {
+                            "subtype": "rs_console",
+                            "trigger": "http://192.168.1.2/api/services/console/config",
+                            "expected":"RS console"
+                        },
+                        {
+                            "subtype": "rs_modem",
+                            "trigger": "http://192.168.1.2/api/services/rs_modem/config",
+                            "expected":"RS modem"
+                        },
+                        {
+                            "subtype": "rs_modbus",
+                            "trigger": "http://192.168.1.2/api/services/modbus/tcp_over_serial/config",
+                            "expected":"RS modbus"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

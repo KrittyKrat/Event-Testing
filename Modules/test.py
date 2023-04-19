@@ -147,7 +147,7 @@ def setGlobalVariables(rut1, rut2):
     else:
         IP2 = rut2[0]
 
-def testAll(events, rut1, rut2):
+def testAll(events, rut1, rut2, mod):
 
     setGlobalVariables(rut1, rut2)
     testSpecific.setGlobalIP(IP1, IP2)
@@ -164,7 +164,7 @@ def testAll(events, rut1, rut2):
     passedCommands = 0
     failedCommands = 0
 
-    setupSMS(header2)
+    setupSMS(header2, mod)
 
     terminal.terminal("Type", "Subtype", "Passed", "Failed", "Total", False)
 
@@ -181,7 +181,7 @@ def testAll(events, rut1, rut2):
                 token2 = getToken(rut2, IP2)
                 header2 = {"Authorization": "Bearer " + token2}
 
-            checkSMS(events[i], header2)
+            checkSMS(events[i], header2, mod)
             passedCommands, failedCommands = checkGotten(events[i], passedCommands, failedCommands)
             timeout = 5
             i += 1
@@ -196,9 +196,13 @@ def testAll(events, rut1, rut2):
 
     terminal.terminal("---", "---", passedCommands, failedCommands, totalCommands, False)
 
-def setupSMS(header2):
+def setupSMS(header2, mod):
     get_url = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config"
-    del_ulr = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config/1-1.4"
+
+    if mod == None:
+        del_ulr = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config/1-1.4"
+    else:
+        del_ulr = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config/" + mod
 
     response = requests.get(get_url, headers=header2)
     nr = []
@@ -209,7 +213,7 @@ def setupSMS(header2):
     body = {"data":nr}
     rz = requests.delete(del_ulr, headers=header2, json=body)
 
-def checkSMS(e, header2):
+def checkSMS(e, header2, mod):
     get_url = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config"
     timeout = 8
     temp = ""
@@ -222,13 +226,13 @@ def checkSMS(e, header2):
             if(d['message'] == e.expected):
                 e.gotten = e.expected
                 e.nrGotten = e.nrExpected
-                setupSMS(header2)
+                setupSMS(header2, mod)
                 return
             else:
                 temp = d['message']
                 tempNr = d['sender']
 
-        setupSMS(header2)
+        setupSMS(header2, mod)
         time.sleep(1.5)
 
     e.gotten  = temp
