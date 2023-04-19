@@ -1,0 +1,62 @@
+Event,Gotten,Expected,Number Got,Number Sent,Passed
+Config,Hotspot,Hotspot,863897689,863897689,Pass
+Config,Email to SMS,Email to SMS,863897689,863897689,Pass
+Config,AVL,AVL,863897689,863897689,Pass
+Config,Buttons,Buttons,863897689,863897689,Pass
+Config,FOTA,FOTA,863897689,863897689,Pass
+Config,Wifi scanner,Wifi scanner,863897689,863897689,Pass
+Config,Telnet,Telnet,863897689,863897689,Pass
+Config,CLI,CLI,863897689,863897689,Pass
+Config,IP block,IP block,863897689,863897689,Pass
+Config,DHCP,DHCP,863897689,863897689,Pass
+Config,L2TP,L2TP,863897689,863897689,Pass
+Config,Wake on LAN,Wake on LAN,863897689,863897689,Pass
+Config,Post/Get,Post/Get,863897689,863897689,Pass
+Config,STUNEL,STUNEL,863897689,863897689,Pass
+Config,SQM,SQM,863897689,863897689,Pass
+Config,SNMP trap,SNMP trap,863897689,863897689,Pass
+Config,SNMP,SNMP,863897689,863897689,Pass
+Config,SMS gateway,SMS gateway,863897689,863897689,Pass
+Config,SMS utils,SMS utils,863897689,863897689,Pass
+Config,Simcard,Simcard,863897689,863897689,Pass
+Config,SIM switch,SIM switch,863897689,863897689,Pass
+Config,Network shares,Network shares,863897689,863897689,Pass
+Config,Users management,Users management,863897689,863897689,Pass
+Config,RMS,RMS,863897689,863897689,Pass
+Config,Mobile data limit,Mobile data limit,863897689,863897689,Pass
+Config,Site proxy,Site proxy,863897689,863897689,Pass
+Config,PPTP,PPTP,863897689,863897689,Pass
+Config,Printer server,Printer server,863897689,863897689,Pass
+Config,Overview,Overview,863897689,863897689,Pass
+Config,Operator list,Operator list,863897689,863897689,Pass
+Config,NTP server,NTP server,863897689,863897689,Pass
+Config,NTP client,NTP client,863897689,863897689,Pass
+Config,Failover,Failover,863897689,863897689,Pass
+Config,Multi AP,Multi AP,863897689,863897689,Pass
+Config,Modbus gateway,Modbus gateway,863897689,863897689,Pass
+Config,TCP master,TCP master,863897689,863897689,Pass
+Config,Data to server,Data to server,863897689,863897689,Pass
+Config,Modbus,Modbus,863897689,863897689,Pass
+Config,UPNP,UPNP,863897689,863897689,Pass
+Config,VRRP,VRRP,863897689,863897689,Pass
+Config,Wireless,Wireless,863897689,863897689,Pass
+Config,Profiles,Profiles,863897689,863897689,Pass
+Config,MQTT Broker,MQTT Broker,863897689,863897689,Pass
+Config,MQTT Publisher,MQTT Publisher,863897689,863897689,Pass
+Config,Network,Network,863897689,863897689,Pass
+Config,SSH,SSH,863897689,863897689,Pass
+Config,IPSEC,IPSEC,863897689,863897689,Pass
+Config,IO Scheduler,IO Scheduler,863897689,863897689,Pass
+Config,IO Juggler,IO Juggler,863897689,863897689,Pass
+Config,Webfilter,Webfilter,863897689,863897689,Pass
+Config,GPS,GPS,863897689,863897689,Pass
+Config,USB,USB,863897689,863897689,Pass
+Config,Firewall,Firewall,863897689,863897689,Pass
+Config,DMVPN,DMVPN,863897689,863897689,Pass
+Config,DDNS,DDNS,863897689,863897689,Pass
+Config,Bluetooth,Bluetooth,863897689,863897689,Pass
+Config,Call Utilities,Call Utilities,863897689,863897689,Pass
+Config,Periodic Reboot,Periodic Reboot,863897689,863897689,Pass
+Config,Ping Reboot,Ping Reboot,863897689,863897689,Pass
+Config,Events Reporting,Events Reporting,863897689,863897689,Pass
+Config,OpenVPN,OpenVPN,863897689,863897689,Pass

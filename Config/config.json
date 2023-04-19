@@ -2,12 +2,27 @@
     "testNumber":"869463329",
     "devices": [
         {
-            "router": "RUTX11",
+            "router": "RUTX11_C",
             "number": "863897689",
             "types": [
                 {
                     "type": "Config",
                     "subtypes": [
+                        {
+                            "subtype": "chilli",
+                            "trigger": "http://192.168.1.1/api/services/hotspot/general/config",
+                            "expected":"Hotspot"
+                        },
+                        {
+                            "subtype": "email_to_sms",
+                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/sms_gateway/email_to_sms/config/general",
+                            "expected":"Email to SMS"
+                        },
+                        {
+                            "subtype": "avl",
+                            "trigger": "http://192.168.1.1/api/services/gps/avl/config/general",
+                            "expected":"AVL"
+                        },
                         {
                             "subtype": "buttons",
                             "trigger": "http://192.168.1.1/api/system/administration/buttons/config",
@@ -39,21 +54,6 @@
                             "expected":"IP block"
                         },
                         {
-                            "subtype": "frr",
-                            "trigger": "http://192.168.1.1/ubus",
-                            "expected":"Dynamic routes"
-                        },
-                        {
-                            "subtype": "email_to_sms",
-                            "trigger": "http://192.168.1.1/api/services/mobile_utilities/sms_gateway/email_to_sms/config/general",
-                            "expected":"Email to SMS"
-                        },
-                        {
-                            "subtype": "avl",
-                            "trigger": "http://192.168.1.1/api/services/gps/avl/config/general",
-                            "expected":"AVL"
-                        },
-                        {
                             "subtype": "dhcp",
                             "trigger": "http://192.168.1.1/api/network/dhcp/servers/config/lan",
                             "expected":"DHCP"
@@ -67,11 +67,6 @@
                             "subtype": "etherwake",
                             "trigger": "http://192.168.1.1/api/services/wol_setup/config/general",
                             "expected":"Wake on LAN"
-                        },
-                        {
-                            "subtype": "widget",
-                            "trigger": "http://192.168.1.1/ubus",
-                            "expected":"Widget"
                         },
                         {
                             "subtype": "post_get",
@@ -289,11 +284,6 @@
                             "expected":"DDNS"
                         },
                         {
-                            "subtype": "chilli",
-                            "trigger": "http://192.168.1.1/api/services/hotspot/groups/config",
-                            "expected":"Hotspot"
-                        },
-                        {
                             "subtype": "blesem",
                             "trigger": "http://192.168.1.1/api/services/bluetooth/general/config/general",
                             "expected":"Bluetooth"
@@ -324,7 +314,13 @@
                             "expected":"OpenVPN"
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            "router": "RUTX11_E",
+            "number": "863897689",
+            "types": [
                 {
                     "type": "DHCP",
                     "subtypes": [
@@ -502,22 +498,6 @@
                             "subtype": "Changes in topology",
                             "trigger": "http://192.168.1.1/api/network/interfaces/config",
                             "expected":"Changes In Topology"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "router": "RUTX11_C",
-            "number": "869027973",
-            "types": [
-                {
-                    "type": "Config",
-                    "subtypes": [
-                        {
-                            "subtype": "frr",
-                            "trigger": "http://192.168.1.1/ubus",
-                            "expected":"Dynamic routes"
                         }
                     ]
                 }

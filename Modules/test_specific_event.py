@@ -2,7 +2,7 @@ import requests
 import random
 import time
 from datetime import datetime, timedelta
-from Modules import test
+from Modules import test_all
 
 def setGlobalIP(i1, i2):
     global IP1
@@ -11,9 +11,10 @@ def setGlobalIP(i1, i2):
     IP2 = i2
 
 def testConfig(e, header, api_url):
+    response = test_all.changeEventConfig(e, header, api_url)
+    time.sleep(3)
     id = createTemp(header, e)
-    time.sleep(5)
-    response = test.changeEventConfig(e, header, api_url)
+    time.sleep(2)
     deleteTemp(header, e, id)
     time.sleep(2)
 
@@ -26,14 +27,11 @@ def createTemp(header, event):
         case "multi_wifi":
             body = {"data":{"device":"radio0","network":str(random.randrange(9999)),"fwzone":"wan"}}
             post = True
-        case "xl2tpd":
+        case "xl2tpd" | "pptpd":
             body = {"data":{"id":str(random.randrange(9999)),".type":"service"}}
             post = True
         case "widget":
             body = [{"jsonrpc":"2.0","id":24,"method":"call","params":["fbd73545588e8f2d0874ac6d1fa95dde","uci","set",{"config":"widget","section":"cfg028e09","values":{"enabled":"0"}}]}]
-            post = True
-        case "sqm":
-            body = {"data":{"id":str(random.randrange(9999))}}
             post = True
         case "sms_utils":
             body = {"data":{"smstext":"12345","action":"gps"}}
@@ -41,41 +39,23 @@ def createTemp(header, event):
         case "rpcd":
             body = {"data":{"username":str(random.randrange(9999)),"password":"Asdasd123","group":"user"}}
             post = True
-        case "pptpd":
-            body = {"data":{"id":str(random.randrange(9999)),".type":"service"}}
+        case "sqm" | "mwan3" | "ddns" | "dmvpn" | "ipsec" | "network" | "vrrpd":
+            body = {"data":{"id":str(random.randrange(9999))}}
             post = True
         case "operctl":
             body = {"data":{"name":str(random.randrange(9999))}}
             post = True
-        case "mwan3":
-            body = {"data":{"id":str(random.randrange(9999))}}
-            post = True
-        case "mwan3":
-            body = {"data":{"id":str(random.randrange(9999))}}
-            post = True
-        case "ddns":
-            body = {"data":{"id":str(random.randrange(9999))}}
-            post = True
-        case "dmvpn":
-            body = {"data":{"id":str(random.randrange(9999))}}
-            post = True
-        case "ipsec":
-            body = {"data":{"id":str(random.randrange(9999))}}
-            post = True
         case "openvpn":
             body = {"data":{"id":str(random.randrange(9999)),"type":"client"}}
-            post = True
-        case "network":
-            body = {"data":{"id":str(random.randrange(9999))}}
-            post = True
-        case "vrrpd":
-            body = {"data":{"id":str(random.randrange(9999))}}
             post = True
         case "profiles":
             body = {"data":{"id":str(random.randrange(9999)),"from_current_profile":"0",".type":"profile"}}
             post = True
         case "rs_console" | "rs_modem" | "rs_modbus" | "rs_overip":
             body = {"data":{"name":str(random.randrange(9999)),"device":"/dev/rs232"}}
+            post = True
+        case "chilli":
+            body = {"data":{"network":"lan"}}
             post = True
         case "buttons":
             body = {"data":[{"min":"0",".type":"button","max":"5","id":"cfg015d81","enabled":"0"}]}
@@ -159,11 +139,6 @@ def createTemp(header, event):
             body = {"data":{"noscan":"0",".type":"wifi-device","country":"US","id":"radio0","legacy_rates":"1","hwmode":"n","txpower":"23","channel":"auto","htmode":"HT20","enabled":"0","distance":"","frag":"","rts":"","beacon_int":""}}
         case "upnpd":
             body = {"data":{"enabled":"1","log_output":"0","upload":"512","system_uptime":"1","uuid":"","serial_number":"","model_number":"","notify_interval":"","clean_ruleset_threshold":"","clean_ruleset_interval":"","presentation_url":""}}
-        case "chilli":
-            temp = requests.get(event.trigger, headers=header)
-            tempId = temp.json()['data'][0]['id']
-            event.trigger = event.trigger + "/" + tempId
-            body = {"data":{".type":"group","id":tempId,"defidletimeout":"1","day":"2","period":"3","downloadbandwidth":"","uploadbandwidth":"","downloadlimit":"","uploadlimit":"","defsessiontimeout":"","warning":""}}
         case other:
             body = {"data":{}}
             post = True
@@ -174,7 +149,9 @@ def createTemp(header, event):
         response = requests.post(api_url, headers=header, json=body)
     else:
         response = requests.put(api_url, headers=header, json=body)
-        
+
+    print(response.text)
+
     try:
         return response.json()['data']['id']
     except:
@@ -248,8 +225,6 @@ def deleteTemp(header, event, id):
             body = {"data":{"enabled":"0",".type":"section","id":"general"}}
         case "firewall":
             body = {"data":{"drop_invalid":"0",".type":"defaults","auto_helper":"1","input":"REJECT","forward":"REJECT","id":"general","output":"ACCEPT"}}
-        case "chilli":
-            body = {"data":{".type":"group","id":id,"defidletimeout":"1","day":"1","period":"3","downloadbandwidth":"","uploadbandwidth":"","downloadlimit":"","uploadlimit":"","defsessiontimeout":"","warning":""}}
         case "fstab":
             body = {"data":{"id":"general",".type":"global","auto_sync":"0"}}
         case "gps":
@@ -312,15 +287,18 @@ def deleteTemp(header, event, id):
     else:
         response = requests.put(api_url, headers=header, json=body)
 
+    print(response.text)
+    print()
+
 def testSSH(e, header, api_url):
-    response = test.changeEventConfig(e, header, api_url)
-    ssh = test.connectSSH(e.trigger.split())
+    response = test_all.changeEventConfig(e, header, api_url)
+    ssh = test_all.connectSSH(e.trigger.split())
     time.sleep(2)
     ssh.close()
 
 def testWeb(e, header, api_url):
-    response = test.changeEventConfig(e, header, api_url)
-    test.getToken(["hold", e.trigger.split()[0], e.trigger.split()[1]], IP1)
+    response = test_all.changeEventConfig(e, header, api_url)
+    test_all.getToken(["hold", e.trigger.split()[0], e.trigger.split()[1]], IP1)
     time.sleep(5)
 
 def testMobData(e, header, api_url):
@@ -336,7 +314,7 @@ def testMobData(e, header, api_url):
         requests.post(msg_url, headers=header, json=dataOn)
         time.sleep(80)
 
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
 
     if trig[1] == "mobileon":
         requests.post(msg_url, headers=header, json=dataOn)
@@ -349,7 +327,7 @@ def testMobData(e, header, api_url):
     time.sleep(30)
 
 def testSimSwitch(e, header, api_url):
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
 
     if e.subtype == "to SIM1":
         sim_url = "http://"+IP1+"/api/network/mobile/simcards/config/cfg02aa0e"
@@ -391,7 +369,7 @@ def testFailover(e, header, api_url, ids):
         requests.post(get_url, headers=header, json=mainOn)
         time.sleep(20)
     
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
 
     if e.trigger == "1": 
         requests.post(get_url, headers=header, json=mainOn)
@@ -409,14 +387,14 @@ def testPorts(e, header, api_url):
     else: 
         temp = "disabled"
 
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
     time.sleep(3)
     requests.put(e.trigger, headers=header, json={"data":{"id":"general",".type":"switch","mirror_monitor_port":temp,"mirror_source_port":"3","enable_mirror_rx":"","enable_mirror_tx":""}})
     time.sleep(10)
 
 def testReboot(e, header, header2, api_url, rut):
 
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
     time.sleep(3)
 
     match e.subtype:
@@ -426,7 +404,7 @@ def testReboot(e, header, header2, api_url, rut):
             body = {"data":{".type":"ping_reboot","retry":"1","id":tempId,"ip_type":"ipv4","packet_size":"56","time_out":"1","enable":"1","type":"ping","action":"1","time":"5","host":"192.168.55.55","stop_action":"0","number":"","interface":"1"}}
             rez = requests.put(e.trigger + "/" + tempId, headers=header, json=body)
             time.sleep(400)
-            header = {"Authorization": "Bearer " + test.getToken(rut, IP1)}
+            header = {"Authorization": "Bearer " + test_all.getToken(rut, IP1)}
             requests.delete(e.trigger, headers=header, json={"data":[tempId]})
         case "reboot scheduler":
             dt = datetime.now() + timedelta(seconds=60)
@@ -435,7 +413,7 @@ def testReboot(e, header, header2, api_url, rut):
             body = {"data":{"id":tempId,".type":"reboot_instance","action":"1","period":"week","days":["mon","tue","wed","thu","fri","sat","sun"],"time":[dt.strftime("%H:%M")],"months":"","month_day":"","enable":"1","force_last":""}}
             rez = requests.put(e.trigger + "/" + tempId, headers=header, json=body)
             time.sleep(180)
-            header = {"Authorization": "Bearer " + test.getToken(rut, IP1)}
+            header = {"Authorization": "Bearer " + test_all.getToken(rut, IP1)}
             requests.delete(e.trigger, headers=header, json={"data":[tempId]})
         case "web ui":
             rez = requests.post(e.trigger, headers=header)
@@ -446,13 +424,13 @@ def testReboot(e, header, header2, api_url, rut):
             rez = requests.post(msg_url, headers=header, json=body)
             time.sleep(120)
         case "from button":
-            ssh = test.connectSSH(None)
+            ssh = test_all.connectSSH(None)
             #ssh.exec_command(e.trigger)
-            test.executeCommand(ssh, e.trigger)
+            test_all.executeCommand(ssh, e.trigger)
             time.sleep(120)
 
 def testSMS(e, header, api_url):
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
 
     body = {"data":{"modem":"3-1","number":e.nrExpected,"message": e.trigger}}
     msg_url = "http://"+IP1+"/api/services/mobile_utilities/sms_messages/send/actions/send"
@@ -465,12 +443,12 @@ def testTopology(e, header, api_url):
     bodyOn = {"data": [{"enabled": "1","id": "wan",".type": "interface","metric": "1"}]}
     requests.put(e.trigger, headers=header, json=bodyOff)
     time.sleep(5)
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
     requests.put(e.trigger, headers=header, json=bodyOn)
     time.sleep(60)
 
 def testWiFi(e, header, api_url, header2):
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
 
     trig = e.trigger.split() 
     if e.subtype == "client connected":
@@ -494,7 +472,7 @@ def testDHCP(e, header, api_url, header2):
     bodyUpdate = {"data": {".type": "interface","fwzone": "lan","id": "lan","ip6assign": "60","ifname": ["eth0"],"proto": "static"}}
     update_url = "http://"+IP1+"/api/network/interfaces/config/lan"
 
-    response = test.changeEventConfig(e, header, api_url)
+    response = test_all.changeEventConfig(e, header, api_url)
     if e.subtype == "lan":
         requests.put(dhcp_url, headers=header, json=bodyChange)
         time.sleep(5)

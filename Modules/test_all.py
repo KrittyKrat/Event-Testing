@@ -3,8 +3,8 @@ import time
 import paramiko
 import random
 from datetime import datetime, timedelta
-from Modules import terminal
-from Modules import testSpecific
+from Modules import terminal_utility
+from Modules import test_specific_event
 
 def executeCommand(sc, command):
     try:
@@ -83,30 +83,30 @@ def findEvent(e, header, api_url, header2, rut1):
     #ssh = connectSSH(None)
     match e.type:
         case "Config":
-            testSpecific.testConfig(e, header, api_url)
+            test_specific_event.testConfig(e, header, api_url)
         case "SSH":
-            testSpecific.testSSH(e, header, api_url)
+            test_specific_event.testSSH(e, header, api_url)
         case "Web UI":
-            testSpecific.testWeb(e, header, api_url)
+            test_specific_event.testWeb(e, header, api_url)
         case "Mobile Data":
-            testSpecific.testMobData(e, header, api_url)
+            test_specific_event.testMobData(e, header, api_url)
         case "SIM switch":
-            testSpecific.testSimSwitch(e, header, api_url)
+            test_specific_event.testSimSwitch(e, header, api_url)
         case "Failover":
             ids = prepFailover(header)
-            testSpecific.testFailover(e, header, api_url, ids)
+            test_specific_event.testFailover(e, header, api_url, ids)
         case "Switch Events":
-            testSpecific.testPorts(e, header, api_url)
+            test_specific_event.testPorts(e, header, api_url)
         case "Reboot":
-            testSpecific.testReboot(e, header, header2, api_url, rut1)
+            test_specific_event.testReboot(e, header, header2, api_url, rut1)
         case "SMS":
-            testSpecific.testSMS(e, header, api_url)
+            test_specific_event.testSMS(e, header, api_url)
         case "Switch Topology":
-            testSpecific.testTopology(e, header, api_url)
+            test_specific_event.testTopology(e, header, api_url)
         case "WiFi":
-            testSpecific.testWiFi(e, header, api_url, header2)
+            test_specific_event.testWiFi(e, header, api_url, header2)
         case "DHCP":
-            testSpecific.testDHCP(e, header, api_url, header2)
+            test_specific_event.testDHCP(e, header, api_url, header2)
 
 def toggleVlan(on, header):
     vlan_url = "http://"+IP1+"/api/network/vlan/port_based/config"
@@ -150,7 +150,7 @@ def setGlobalVariables(rut1, rut2):
 def testAll(events, rut1, rut2, mod):
 
     setGlobalVariables(rut1, rut2)
-    testSpecific.setGlobalIP(IP1, IP2)
+    test_specific_event.setGlobalIP(IP1, IP2)
     
     token = getToken(rut1, IP1)
     header = {"Authorization": "Bearer " + token}
@@ -166,13 +166,13 @@ def testAll(events, rut1, rut2, mod):
 
     setupSMS(header2, mod)
 
-    terminal.terminal("Type", "Subtype", "Passed", "Failed", "Total", False)
+    terminal_utility.terminal("Type", "Subtype", "Passed", "Failed", "Total", False)
 
     timeout = 5
     i=0
     while i < len(events):
         try:
-            terminal.terminal(events[i].type, events[i].subtype, passedCommands, failedCommands, totalCommands, False)
+            terminal_utility.terminal(events[i].type, events[i].subtype, passedCommands, failedCommands, totalCommands, False)
             findEvent(events[i], header, api_url, header2, rut1)
 
             if events[i].type == "Reboot":
@@ -194,7 +194,7 @@ def testAll(events, rut1, rut2, mod):
             print("No connection found, retrying...")
             time.sleep(10)
 
-    terminal.terminal("---", "---", passedCommands, failedCommands, totalCommands, False)
+    terminal_utility.terminal("---", "---", passedCommands, failedCommands, totalCommands, False)
 
 def setupSMS(header2, mod):
     get_url = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config"
@@ -215,7 +215,7 @@ def setupSMS(header2, mod):
 
 def checkSMS(e, header2, mod):
     get_url = "http://"+IP2+"/api/services/mobile_utilities/sms_messages/read/config"
-    timeout = 8
+    timeout = 20
     temp = ""
     tempNr = ""
 
@@ -233,7 +233,7 @@ def checkSMS(e, header2, mod):
                 tempNr = d['sender']
 
         setupSMS(header2, mod)
-        time.sleep(1.5)
+        time.sleep(2)
 
     e.gotten  = temp
     e.nrGotten = tempNr

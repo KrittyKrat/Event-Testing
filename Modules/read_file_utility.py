@@ -1,5 +1,5 @@
 import json
-from Modules.events import Event
+from Modules.event_class import Event
 
 def openJson(jsonFile):
     try:
